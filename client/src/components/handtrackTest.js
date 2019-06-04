@@ -1,6 +1,6 @@
 import React from "react";
 import * as handTrack from "handtrackjs";
-const spawn = require("threads").spawn;
+// const spawn = require("threads").spawn;
 
 export default class handtrackTest extends React.Component {
   constructor(props) {
@@ -18,7 +18,6 @@ export default class handtrackTest extends React.Component {
     this.counter = 0;
     this.thread = null;
   }
-
   componentDidMount() {
     this.context = this.canvas.current.getContext("2d");
     const modelParams = {
@@ -43,7 +42,6 @@ export default class handtrackTest extends React.Component {
         // updateNote.innerText = "Video started. Now tracking"
         this.isVideo = true;
         this.runDetection();
-        this.thread = spawn(function(input, done) {});
       } else {
         // updateNote.innerText = "Please enable video"
       }
@@ -63,7 +61,6 @@ export default class handtrackTest extends React.Component {
   };
 
   runDetection = () => {
-    this.thread.send();
     this.model.detect(this.video.current).then(predictions => {
       if (predictions[0]) {
         let x = predictions[0].bbox[0];

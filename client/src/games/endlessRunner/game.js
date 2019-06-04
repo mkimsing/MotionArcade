@@ -77,19 +77,19 @@ class RunnerScene extends Phaser.Scene {
       "./assets/BackgroundLayers/Layer_0000_9.png"
     );
 
-    //Player
-    this.load.spritesheet(
-      "playerChar",
-      "./assets/Adventurer-1.5/adventurer-v1.5-Sheet.png",
-      { frameWidth: 50, frameHeight: 37 }
-    );
+    // //Player
+    // this.load.spritesheet(
+    //   "playerChar",
+    //   "./assets/Adventurer-1.5/adventurer-v1.5-Sheet.png",
+    //   { frameWidth: 50, frameHeight: 37 }
+    // );
 
-    //Skeleton
-    this.load.spritesheet(
-      "SkeletonAttack",
-      "./assets/Skeleton/SpriteSheets/SkeletonAttack.png",
-      { frameWidth: 30, frameHeight: 37 }
-    );
+    // //Skeleton
+    // this.load.spritesheet(
+    //   "SkeletonAttack",
+    //   "./assets/Skeleton/SpriteSheets/SkeletonAttack.png",
+    //   { frameWidth: 30, frameHeight: 37 }
+    // );
 
     //Skeleton
     // this.load.spritesheet(
@@ -192,6 +192,218 @@ class RunnerScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.body.setAllowDrag(true);
 
+    this.cursors = this.input.keyboard.createCursorKeys();
+
+    // Physics group for enemies
+    this.skeletonList = this.physics.add.group();
+
+    //Collide platform and player
+    this.physics.add.collider(this.platforms, this.player);
+    this.physics.add.collider(this.platforms, this.skeletonList);
+    this.physics.add.collider(
+      this.player,
+      this.skeletonList,
+      this.onEnemyCollision,
+      null,
+      this
+    );
+
+    let callback = () => {
+      this.makeSkeleton();
+      //Update score
+      this.score += 100;
+      this.scoreText.setText("Score: " + this.score);
+    };
+
+    //  The score
+    this.scoreText = this.add.text(50, 32, "Score: 0", {
+      fontSize: "24px",
+      fill: "#FFF"
+    });
+
+    // Restart Label/Button
+    let restartBtn = this.add.text(650, 32, "Restart", {
+      fontSize: "24px",
+      fill: "#FFF"
+    });
+    restartBtn.setInteractive();
+    restartBtn.on("pointerdown", () => {
+      this.resetVariables();
+      this.scene.restart();
+    });
+
+    //Timer to control skeleton spawning
+    this.spawnTimer = this.time.addEvent({
+      delay: Phaser.Math.Between(1300, 2000), // ms
+      callback: callback,
+      //args: [],
+      callbackScope: this,
+      loop: true
+    });
+  }
+
+  update() {
+    if (this.gameOver) {
+      this.spawnTimer.paused = true;
+      this.scene.pause()
+      let scoreCopy = this.score;
+      this.resetVariables()
+      this.scene.launch('GameOverScene', { score: scoreCopy })
+      return;
+    }
+    let scrollSpeed = 6;
+    this.ground.tilePositionX += scrollSpeed;
+    this.groundLayer1.tilePositionX += scrollSpeed;
+    this.treeTops.tilePositionX += scrollSpeed;
+    this.backgroundLayer1.tilePositionX += scrollSpeed;
+    this.backgroundLayer2.tilePositionX += scrollSpeed;
+    this.backgroundLayer3.tilePositionX += scrollSpeed;
+    this.backgroundLayer4.tilePositionX += scrollSpeed;
+    this.backgroundLayer5.tilePositionX += scrollSpeed;
+    this.backgroundLayer6.tilePositionX += scrollSpeed;
+    this.backgroundLayer7.tilePositionX += scrollSpeed;
+    this.backgroundLayer8.tilePositionX += scrollSpeed;
+
+    this.player.body.setVelocityX(0); // Always reset velocity per frame (do not slide)
+    if (this.cursors.left.isDown) {
+      this.player.body.setVelocityX(-500); // move left
+      this.player.flipX = true; // flip the sprite to the left
+      if (this.player.body.touching.down) {
+        this.player.anims.play("left", true); // play walk animation
+      }
+    } else if (this.cursors.right.isDown) {
+      this.player.body.setVelocityX(500); // move right
+      this.player.flipX = false; // use the original sprite looking to the right
+      if (this.player.body.touching.down) {
+        this.player.anims.play("left", true); // play walk animation
+      }
+    } else if (this.player.body.touching.down) {
+      this.player.flipX = false; // use the original sprite looking to the right
+      this.player.anims.play("idle-run", true);
+    }
+
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(950 * -1);
+      this.player.anims.play("jump", true);
+    }
+    if (this.cursors.down.isDown && this.player.body.touching.down) {
+      this.player.anims.play("slide", true); // play slide animation
+    }
+  }
+
+  playerJump() {
+    if (this.player.body.touching.down) {
+      this.player.setVelocityY(1000 * -1);
+      this.player.anims.play("jump", true);
+    }
+  }
+
+  makeSkeleton() {
+    let skeleton = this.skeletonList.create(900, 450, "SkeletonAttack");
+    skeleton.flipX = true;
+    skeleton
+      .setScale(3, 3)
+      .setVelocityX(Phaser.Math.Between(400, 600) * -1)
+      .setSize(20, 30)
+      .setOffset(5, 5);
+  }
+
+  onEnemyCollision() {
+    this.gameOver = true;
+  }
+
+  resetVariables() {
+    // this.bg = null;
+    this.score = 0;
+    this.gameOver = false;
+    // this.spawnTimer = null;
+    // this.scoreText = "";
+    // this.pause_label = "";
+  }
+}
+
+class MainMenuScene extends Phaser.Scene {
+  constructor() {
+    super({ key: "MainMenuScene" });
+
+  }
+
+  preload() {
+    this.load.image('playButton', './assets/menu/playButton.png')
+  }
+
+  create() {
+    let playBtn = this.add.image(400, 200, 'playButton')
+      .setInteractive()
+      .setDisplaySize(300, 100)
+    playBtn.on("pointerdown", () => {
+      this.scene.start('RunnerScene')
+    })
+  }
+
+}
+
+class GameOverScene extends Phaser.Scene {
+  constructor() {
+    super({ key: "GameOverScene" });
+  }
+
+  init(data) {
+    console.log('INIT', data)
+    this.score = data.score;
+  }
+
+  preload() {
+    this.load.image('playButton', './assets/menu/playButton.png')
+  }
+
+  create() {
+    let playBtn = this.add.image(400, 300, 'playButton')
+      .setInteractive()
+      .setDisplaySize(300, 100)
+    playBtn.on("pointerdown", () => {
+      this.scene.stop('RunnerScene')
+      this.scene.start('RunnerScene')
+    })
+
+    let msgX = 320;
+    this.add.text(msgX, 100, "Game Over...", {
+      fontSize: "24px",
+      fill: "#FFF"
+    });
+    this.add.text(msgX - 30, 150, `You Scored: ${this.score}`, {
+      fontSize: "24px",
+      fill: "#FFF"
+    });
+    this.add.text(msgX, 200, "Play Again?", {
+      fontSize: "24px",
+      fill: "#FFF"
+    });
+  }
+}
+
+class PreloadScene extends Phaser.Scene {
+  constructor() {
+    super({ key: "PreloadScene" });
+
+  }
+  preload() {
+    //Player
+    this.load.spritesheet(
+      "playerChar",
+      "./assets/Adventurer-1.5/adventurer-v1.5-Sheet.png",
+      { frameWidth: 50, frameHeight: 37 }
+    );
+
+    //Skeleton
+    this.load.spritesheet(
+      "SkeletonAttack",
+      "./assets/Skeleton/SpriteSheets/SkeletonAttack.png",
+      { frameWidth: 30, frameHeight: 37 }
+    );
+  }
+
+  create() {
     //Player Char Animations
     let animFrameRate = 8;
     this.anims.create({
@@ -255,132 +467,9 @@ class RunnerScene extends Phaser.Scene {
       repeat: 0
     });
 
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    // Physics group for enemies
-    this.skeletonList = this.physics.add.group();
-
-    //Collide platform and player
-    this.physics.add.collider(this.platforms, this.player);
-    this.physics.add.collider(this.platforms, this.skeletonList);
-    this.physics.add.collider(
-      this.player,
-      this.skeletonList,
-      this.onEnemyCollision,
-      null,
-      this
-    );
-
-    let callback = () => {
-      this.makeSkeleton();
-      //Update score
-      this.score += 100;
-      this.scoreText.setText("Score: " + this.score);
-    };
-
-    //  The score
-    this.scoreText = this.add.text(50, 32, "Score: 0", {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
-
-    // Restart Label/Button
-    let restartBtn = this.add.text(650, 32, "Restart", {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
-    restartBtn.setInteractive();
-    restartBtn.on("pointerdown", () => {
-      this.resetVariables();
-      this.scene.restart();
-    });
-
-    //Timer to control skeleton spawning
-    this.spawnTimer = this.time.addEvent({
-      delay: Phaser.Math.Between(1300, 2000), // ms
-      callback: callback,
-      //args: [],
-      callbackScope: this,
-      loop: true
-    });
+    this.scene.start('MainMenuScene')
   }
 
-  update() {
-    if (this.gameOver) {
-      this.spawnTimer.paused = true;
-      // this.scene.pause()
-      return;
-    }
-    let scrollSpeed = 6;
-    this.ground.tilePositionX += scrollSpeed;
-    this.groundLayer1.tilePositionX += scrollSpeed;
-    this.treeTops.tilePositionX += scrollSpeed;
-    this.backgroundLayer1.tilePositionX += scrollSpeed;
-    this.backgroundLayer2.tilePositionX += scrollSpeed;
-    this.backgroundLayer3.tilePositionX += scrollSpeed;
-    this.backgroundLayer4.tilePositionX += scrollSpeed;
-    this.backgroundLayer5.tilePositionX += scrollSpeed;
-    this.backgroundLayer6.tilePositionX += scrollSpeed;
-    this.backgroundLayer7.tilePositionX += scrollSpeed;
-    this.backgroundLayer8.tilePositionX += scrollSpeed;
-
-    this.player.body.setVelocityX(0); // Always reset velocity per frame (do not slide)
-    if (this.cursors.left.isDown) {
-      this.player.body.setVelocityX(-500); // move left
-      this.player.flipX = true; // flip the sprite to the left
-      if (this.player.body.touching.down) {
-        this.player.anims.play("left", true); // play walk animation
-      }
-    } else if (this.cursors.right.isDown) {
-      this.player.body.setVelocityX(500); // move right
-      this.player.flipX = false; // use the original sprite looking to the right
-      if (this.player.body.touching.down) {
-        this.player.anims.play("left", true); // play walk animation
-      }
-    } else if (this.player.body.touching.down) {
-      this.player.flipX = false; // use the original sprite looking to the right
-      this.player.anims.play("idle-run", true);
-    }
-
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(950 * -1);
-      this.player.anims.play("jump", true);
-    }
-    if (this.cursors.down.isDown && this.player.body.touching.down) {
-      this.player.anims.play("slide", true); // play slide animation
-    }
-  }
-
-  playerJump() {
-    if (this.player.body.touching.down) {
-      this.player.setVelocityY(1000 * -1);
-      this.player.anims.play("jump", true);
-    }
-  }
-
-  makeSkeleton() {
-    let skeleton = this.skeletonList.create(900, 450, "SkeletonAttack");
-    skeleton.flipX = true;
-    skeleton
-      .setScale(3, 3)
-      .setVelocityX(Phaser.Math.Between(400, 600) * -1)
-      .setSize(20, 30)
-      .setOffset(5, 5);
-  }
-
-  onEnemyCollision() {
-    this.gameOver = true;
-    this.physics.pause();
-  }
-
-  resetVariables() {
-    this.bg = null;
-    this.score = 0;
-    this.gameOver = false;
-    this.spawnTimer = null;
-    this.scoreText = "";
-    this.pause_label = "";
-  }
 }
 
 let config = {
@@ -394,7 +483,7 @@ let config = {
       debug: false
     }
   },
-  scene: [RunnerScene]
+  scene: [PreloadScene, MainMenuScene, RunnerScene, GameOverScene]
 };
 
 const game = new Phaser.Game(config);
