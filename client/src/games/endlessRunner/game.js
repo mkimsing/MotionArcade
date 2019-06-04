@@ -1,17 +1,6 @@
-// let player;
-// let platforms;
-// let skeletonList;
-// let groundObj;
-// let bg;
-// let score = 0;
-// let gameOver = false;
-// let spawnTimer;
-// let scoreText;
-// let pause_label = '';
-
 class RunnerScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'RunnerScene' })
+    super({ key: "RunnerScene" });
 
     this.player = null;
     this.platforms = null;
@@ -23,28 +12,26 @@ class RunnerScene extends Phaser.Scene {
     this.scoreText = null;
     this.cursors = null;
     this.log = () => {
-      console.log('!')
-    }
-    window.addEventListener('message', (event) => {
-      if (event.data === 'swipeUp') {
-        console.log(this)
+      console.log("!");
+    };
+    window.addEventListener("message", event => {
+      if (event.data === "swipeUp") {
+        console.log(this);
         this.playerJump();
       }
-      // IMPORTANT: Check the origin of the data! 
-      if (~event.origin.indexOf('http://127.0.0.1:3000/')) {
-        // The data has been sent from your site 
+      // IMPORTANT: Check the origin of the data!
+      if (~event.origin.indexOf("http://127.0.0.1:3000/")) {
+        // The data has been sent from your site
 
-        // The data sent with postMessage is stored in event.data 
-        console.log(event.data, '!');
+        // The data sent with postMessage is stored in event.data
+        console.log(event.data, "!");
       } else {
-        // The data hasn't been sent from your site! 
-        // Be careful! Do not use it. 
+        // The data hasn't been sent from your site!
+        // Be careful! Do not use it.
         return;
       }
     });
   }
-
-
 
   preload() {
     //Background
@@ -85,7 +72,10 @@ class RunnerScene extends Phaser.Scene {
 
     //Foreground
     this.load.image("ground", "./assets/BackgroundLayers/Ground_Cropped.png");
-    this.load.image("groundLayer1", "./assets/BackgroundLayers/Layer_0000_9.png");
+    this.load.image(
+      "groundLayer1",
+      "./assets/BackgroundLayers/Layer_0000_9.png"
+    );
 
     //Player
     this.load.spritesheet(
@@ -273,7 +263,13 @@ class RunnerScene extends Phaser.Scene {
     //Collide platform and player
     this.physics.add.collider(this.platforms, this.player);
     this.physics.add.collider(this.platforms, this.skeletonList);
-    this.physics.add.collider(this.player, this.skeletonList, this.onEnemyCollision, null, this);
+    this.physics.add.collider(
+      this.player,
+      this.skeletonList,
+      this.onEnemyCollision,
+      null,
+      this
+    );
 
     let callback = () => {
       this.makeSkeleton();
@@ -289,14 +285,14 @@ class RunnerScene extends Phaser.Scene {
     });
 
     // Restart Label/Button
-    let restartBtn = this.add.text(650, 32, 'Restart', {
+    let restartBtn = this.add.text(650, 32, "Restart", {
       fontSize: "24px",
       fill: "#FFF"
     });
     restartBtn.setInteractive();
-    restartBtn.on('pointerdown', () => {
-      this.resetVariables()
-      this.scene.restart()
+    restartBtn.on("pointerdown", () => {
+      this.resetVariables();
+      this.scene.restart();
     });
 
     //Timer to control skeleton spawning
@@ -307,7 +303,6 @@ class RunnerScene extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
-
   }
 
   update() {
@@ -364,11 +359,13 @@ class RunnerScene extends Phaser.Scene {
   }
 
   makeSkeleton() {
-    let skeleton = this.skeletonList.create(900, 450, "SkeletonAttack")
-    skeleton.flipX = true
-    skeleton.setScale(3, 3)
+    let skeleton = this.skeletonList.create(900, 450, "SkeletonAttack");
+    skeleton.flipX = true;
+    skeleton
+      .setScale(3, 3)
       .setVelocityX(Phaser.Math.Between(400, 600) * -1)
-      .setSize(20, 30).setOffset(5, 5);
+      .setSize(20, 30)
+      .setOffset(5, 5);
   }
 
   onEnemyCollision() {
@@ -376,14 +373,13 @@ class RunnerScene extends Phaser.Scene {
     this.physics.pause();
   }
 
-
   resetVariables() {
     this.bg = null;
     this.score = 0;
     this.gameOver = false;
     this.spawnTimer = null;
-    this.scoreText = '';
-    this.pause_label = '';
+    this.scoreText = "";
+    this.pause_label = "";
   }
 }
 
@@ -394,12 +390,11 @@ let config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 3000 },
+      gravity: { y: 2200 },
       debug: false
     }
   },
-  scene:
-    [RunnerScene]
+  scene: [RunnerScene]
 };
 
 const game = new Phaser.Game(config);
