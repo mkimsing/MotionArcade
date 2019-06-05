@@ -1,0 +1,24 @@
+footer{
+  background-color: $DARKGREY;
+  width: 100%;
+  height: 100px;
+  color: white;
+  section{
+    margin: 0px 180px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    h3{
+      margin: 0px;
+      padding-top: 10px;
+      font-size: 20px;
+    }
+    .contactInfo{
+      margin-top: 10px;
+      h4{
+        margin: 5px 0px 0px 0px;
+        font-size: 12px;
+      }
+    }
+  }
+}

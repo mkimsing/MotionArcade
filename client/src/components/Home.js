@@ -17,35 +17,37 @@ export default function Home() {
         </div>
       </section>
       <section className="keyFeatures">
-        <h1 className='keyFeatures__title'> Project Features </h1>
-        <div className='cardContainer'>
-          <div className="card">
-            <div className="card__content">
-              <img className="icon2" src={eyeTracking_img} />
-              <h2> Hand Tracking </h2>
-              <h3> CHANGE ME! Some text describing the feature... Something something using handtrack.js.
-                Built on top of tensorflow.js
-                Uses convoluted neural nets and then magic happens
-                Multithreading here if needed...
+        <div className="keyFeatures__content">
+          <h1 className='keyFeatures__title'> Project Features </h1>
+          <div className='cardContainer'>
+            <div className="card">
+              <div className="card__content">
+                <img className="icon2" src={eyeTracking_img} />
+                <h2> Hand Tracking </h2>
+                <h3> CHANGE ME! Some text describing the feature... Something something using handtrack.js.
+                  Built on top of tensorflow.js
+                  Uses convoluted neural nets and then magic happens
+                  Multithreading here if needed...
                 </h3>
+              </div>
             </div>
-          </div>
-          <div className=" card">
-            <div className="card__content">
-              <img className="icon1" src={gameController_img} />
-              <h2> Web Game Development </h2>
-              <h3>CHANGE ME! Something something Phaser 3 game framework.
-                Open source framework for Canvas and WebGL browser games. Uses JS and HTML 5
+            <div className=" card">
+              <div className="card__content">
+                <img className="icon1" src={gameController_img} />
+                <h2> Web Game Development </h2>
+                <h3>CHANGE ME! Something something Phaser 3 game framework.
+                  Open source framework for Canvas and WebGL browser games. Uses JS and HTML 5
                  </h3>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <div className="card__content">
-              <img className="icon3" src={coding_img} />
-              <h2> React UI & Express Server</h2>
-              <h3> CHANGE ME! Uses React Components for UI and Node.js/Express server to handle scores and leaderboards.
-                NPM, React-router-dom, anything else I can fit here
+            <div className="card">
+              <div className="card__content">
+                <img className="icon3" src={coding_img} />
+                <h2> React UI & Express Server</h2>
+                <h3> CHANGE ME! Uses React Components for UI and Node.js/Express server to handle scores and leaderboards.
+                  NPM, React-router-dom, anything else I can fit here
                  </h3>
+              </div>
             </div>
           </div>
         </div>

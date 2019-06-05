@@ -50,7 +50,12 @@
 }
 
 .keyFeatures {
-  margin: 100px 180px 200px 180px;
+  background-color: $LIGHTGREY;
+  padding-top: 100px;
+  padding-bottom: 200px;
+  .keyFeatures__content{
+    margin: 0px 180px;
+  }
   &__title{
     font-size: 64px;
     margin: 32px 0px;
