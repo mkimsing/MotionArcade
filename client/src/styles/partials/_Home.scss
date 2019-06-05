@@ -1,0 +1,73 @@
+.hero {
+  &__img {
+    background: url("../assets//images/Arcade.jpg") center no-repeat;
+    background-size: cover;
+    height: 700px;
+    width: 100%;
+    position: relative;
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: inherit;
+    width: inherit;
+  }
+
+  .contentBlock {
+    position: absolute;
+    top: 10%;
+    left: 7%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    h1 {
+      font-size: 110px;
+      margin: 0px;
+    }
+
+    h2 {
+      margin: 0px;
+      font-size: 40px;
+      //   text-indent: 50px;
+      text-align: center;
+    }
+
+    button.gamesBtn {
+      margin-top: 90px;
+      border-radius: 6px;
+      border: 1px solid #ac656e;
+      width: 160px;
+      height: 55px;
+      font-size: 18px;
+      background-color: white;
+      color: #90323d;
+
+      &:hover {
+        color: white;
+        background-color: #90323d;
+      }
+    }
+  }
+}
+
+.keyFeatures {
+  display: flex;
+  .card {
+    background-color: $BLUEGREY;
+    border: 1px solid black;
+    width: 30%;
+    margin: 10px;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .icon1 {
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+  }
+}

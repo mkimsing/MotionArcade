@@ -1,3 +1,193 @@
+.header {
+  height: 100px;
+  background-color: #262730;
+}
+
+.header .header__flexbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: inherit;
+}
+
+.header .logo {
+  margin: 0px 10px;
+  margin: 0px 50px;
+  height: 65px;
+}
+
+.header .logo:hover {
+  -webkit-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+}
+
+.header .navItem {
+  margin: 0px 25px;
+  width: 120px;
+}
+
+.header .navItem .runnerIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #d33f49;
+  -webkit-mask-image: url("../assets/icons/runner.svg");
+          mask-image: url("../assets/icons/runner.svg");
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+
+.header .navItem .jetIcon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #e3a827;
+  -webkit-mask-image: url("../assets/icons/jet.svg");
+          mask-image: url("../assets/icons/jet.svg");
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+
+.header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  height: inherit;
+}
+
+.header a.navLink {
+  text-decoration: none;
+  color: white;
+  padding-bottom: 10px;
+  border-bottom: 8px solid #edeec7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header a.navLink:hover {
+  border-bottom-color: #d69cc4;
+  color: #9cc4d6;
+}
+
+.header a.navLinkActive {
+  border-bottom: 8px solid #a488e1;
+}
+
+.hero__img {
+  background: url("../assets//images/Arcade.jpg") center no-repeat;
+  background-size: cover;
+  height: 700px;
+  width: 100%;
+  position: relative;
+}
+
+.hero .overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: inherit;
+  width: inherit;
+}
+
+.hero .contentBlock {
+  position: absolute;
+  top: 10%;
+  left: 7%;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.hero .contentBlock h1 {
+  font-size: 110px;
+  margin: 0px;
+}
+
+.hero .contentBlock h2 {
+  margin: 0px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.hero .contentBlock button.gamesBtn {
+  margin-top: 90px;
+  border-radius: 6px;
+  border: 1px solid #ac656e;
+  width: 160px;
+  height: 55px;
+  font-size: 18px;
+  background-color: white;
+  color: #90323d;
+}
+
+.hero .contentBlock button.gamesBtn:hover {
+  color: white;
+  background-color: #90323d;
+}
+
+.keyFeatures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.keyFeatures .card {
+  background-color: #57737a;
+  border: 1px solid black;
+  width: 30%;
+  margin: 10px;
+}
+
+.keyFeatures .card__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.keyFeatures .icon1 {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
 .canvasbox {
   border-radius: 3px;
   margin-right: 10px;
