@@ -1,6 +1,6 @@
 .header {
   height: 100px;
-  background-color: #262730;
+  background-color: #0B0c10;
 }
 
 .header .header__flexbox {
@@ -33,7 +33,7 @@
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: #d33f49;
+  background-color: #a19d9b;
   -webkit-mask-image: url("../assets/icons/runner.svg");
           mask-image: url("../assets/icons/runner.svg");
   -webkit-mask-position: center;
@@ -48,7 +48,7 @@
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background-color: #e3a827;
+  background-color: #a19d9b;
   -webkit-mask-image: url("../assets/icons/jet.svg");
           mask-image: url("../assets/icons/jet.svg");
   -webkit-mask-position: center;
@@ -76,7 +76,7 @@
   text-decoration: none;
   color: white;
   padding-bottom: 10px;
-  border-bottom: 8px solid #edeec7;
+  border-bottom: 8px solid white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -90,18 +90,17 @@
 }
 
 .header a.navLink:hover {
-  border-bottom-color: #d69cc4;
-  color: #9cc4d6;
+  color: #66fcf1;
 }
 
 .header a.navLinkActive {
-  border-bottom: 8px solid #a488e1;
+  border-bottom: 8px solid #45A29E;
 }
 
 .hero__img {
-  background: url("../assets//images/Arcade.jpg") center no-repeat;
+  background: url("../assets/images/Arcade.jpg") center no-repeat;
   background-size: cover;
-  height: 700px;
+  height: 750px;
   width: 100%;
   position: relative;
 }
@@ -115,7 +114,7 @@
 .hero .contentBlock {
   position: absolute;
   top: 10%;
-  left: 7%;
+  left: 180px;
   color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -133,37 +132,52 @@
 
 .hero .contentBlock h2 {
   margin: 0px;
-  font-size: 40px;
+  font-size: 45px;
   text-align: center;
 }
 
 .hero .contentBlock button.gamesBtn {
   margin-top: 90px;
   border-radius: 6px;
-  border: 1px solid #ac656e;
+  border: 1px solid #45A29E;
   width: 160px;
   height: 55px;
   font-size: 18px;
-  background-color: white;
-  color: #90323d;
+  background-color: #0B0c10;
+  color: white;
 }
 
 .hero .contentBlock button.gamesBtn:hover {
   color: white;
-  background-color: #90323d;
+  color: #66fcf1;
 }
 
 .keyFeatures {
+  margin: 100px 180px 200px 180px;
+}
+
+.keyFeatures__title {
+  font-size: 64px;
+  margin: 32px 0px;
+  color: #0B0c10;
+}
+
+.keyFeatures .cardContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .keyFeatures .card {
-  background-color: #57737a;
-  border: 1px solid black;
+  background-color: #1f2833;
+  border: 2px solid #45A29E;
   width: 30%;
   margin: 10px;
+  color: white;
+  height: 400px;
 }
 
 .keyFeatures .card__content {
@@ -182,10 +196,102 @@
           align-items: center;
 }
 
-.keyFeatures .icon1 {
-  border-radius: 50%;
+.keyFeatures .card h2 {
+  color: #66fcf1;
+  margin: 5px;
+  font-size: 32px;
+}
+
+.keyFeatures .card h3 {
+  margin: 5px;
+  text-align: center;
+}
+
+.keyFeatures .icon1, .keyFeatures .icon2, .keyFeatures .icon3 {
+  margin: 15px;
   height: 80px;
   width: 80px;
+}
+
+.keyFeatures .icon3 {
+  border-radius: 50%;
+}
+
+.gameCard {
+  color: white;
+  background-color: #1f2833;
+  position: relative;
+}
+
+.gameCard .overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: inherit;
+  width: inherit;
+}
+
+.gameCard .endlessRunnerImg {
+  background: url("../assets/images/ER_gameplay.png") center no-repeat;
+  background-size: cover;
+  height: 800px;
+}
+
+.gameCard .contentBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  position: absolute;
+  right: 180px;
+  top: 150px;
+}
+
+.gameCard .contentBlock .gameCard__title {
+  color: #66fcf1;
+  font-size: 90px;
+  margin: 0px;
+}
+
+.gameCard .contentBlock h2 {
+  margin: 10px 0px;
+  width: 670px;
+  text-align: right;
+  font-size: 32px;
+}
+
+.gameCard .playBtn {
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 6px;
+  border: 1px solid #45A29E;
+  width: 160px;
+  height: 55px;
+  font-size: 18px;
+  background-color: #0B0c10;
+  margin-top: 20px;
+  color: white;
+}
+
+.gameCard .playBtn:hover {
+  color: white;
+  color: #66fcf1;
+}
+
+.gameCard .highlight {
+  color: #fc8966;
 }
 
 .canvasbox {

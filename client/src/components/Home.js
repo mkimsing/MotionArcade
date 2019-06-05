@@ -1,5 +1,8 @@
 import React from "react";
-import handController from "../assets/images/handController.jpg";
+import { Link } from "react-router-dom";
+import gameController_img from '../assets/icons/game-controller.svg'
+import coding_img from "../assets/icons/coding.svg"
+import eyeTracking_img from "../assets/icons/eye-tracking.svg"
 export default function Home() {
   return (
     <>
@@ -14,25 +17,47 @@ export default function Home() {
         </div>
       </section>
       <section className="keyFeatures">
-        <div className="subCard card">
-          <div className="card__content">
-            <img className="icon2" src="" />
-            <h2> Feature 2</h2>
-            <h3> Some text describing this subcard and the features</h3>
+        <h1 className='keyFeatures__title'> Project Features </h1>
+        <div className='cardContainer'>
+          <div className="card">
+            <div className="card__content">
+              <img className="icon2" src={eyeTracking_img} />
+              <h2> Hand Tracking </h2>
+              <h3> CHANGE ME! Some text describing the feature... Something something using handtrack.js.
+                Built on top of tensorflow.js
+                Uses convoluted neural nets and then magic happens
+                Multithreading here if needed...
+                </h3>
+            </div>
+          </div>
+          <div className=" card">
+            <div className="card__content">
+              <img className="icon1" src={gameController_img} />
+              <h2> Web Game Development </h2>
+              <h3>CHANGE ME! Something something Phaser 3 game framework.
+                Open source framework for Canvas and WebGL browser games. Uses JS and HTML 5
+                 </h3>
+            </div>
+          </div>
+          <div className="card">
+            <div className="card__content">
+              <img className="icon3" src={coding_img} />
+              <h2> React UI & Express Server</h2>
+              <h3> CHANGE ME! Uses React Components for UI and Node.js/Express server to handle scores and leaderboards.
+                NPM, React-router-dom, anything else I can fit here
+                 </h3>
+            </div>
           </div>
         </div>
-        <div className="mainCard card">
-          <div className="card__content">
-            <img className="icon1" src={handController} />
-            <h2> Feature 1</h2>
-            <h3> Some text describing the main card and the features</h3>
-          </div>
-        </div>
-        <div className="subCard card">
-          <div className="card__content">
-            <img className="icon3" src="" />
-            <h2> Feature 3</h2>
-            <h3> Some text describing this subcard and the features</h3>
+      </section>
+      <section className="gameCard">
+        <div className="endlessRunnerImg">
+          <div className="overlay" />
+          <div className="contentBlock">
+            <h1 className="gameCard__title">Endless Runner</h1>
+            <h2>Using your hand as a controller, run for your life through a skeleton infested forest...</h2>
+            <h2 className="highlight">How long will you last?</h2>
+            <Link to="/Game1" className="playBtn"> PLAY </Link>
           </div>
         </div>
       </section>
