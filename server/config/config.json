@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": "$helpmedude9",
+    "database": "game_scores",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
