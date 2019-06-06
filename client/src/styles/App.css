@@ -1,6 +1,6 @@
 .header {
   height: 100px;
-  background-color: #0B0c10;
+  background-color: #0b0c10;
 }
 
 .header .header__flexbox {
@@ -30,33 +30,26 @@
 }
 
 .header .navItem .runnerIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background-color: #a19d9b;
   -webkit-mask-image: url("../assets/icons/runner.svg");
           mask-image: url("../assets/icons/runner.svg");
-  -webkit-mask-position: center;
-          mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-          mask-size: contain;
 }
 
 .header .navItem .jetIcon {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background-color: #a19d9b;
   -webkit-mask-image: url("../assets/icons/jet.svg");
           mask-image: url("../assets/icons/jet.svg");
+}
+
+.header .navItem .icon {
   -webkit-mask-position: center;
           mask-position: center;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   -webkit-mask-size: contain;
           mask-size: contain;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #a19d9b;
 }
 
 .header nav {
@@ -94,13 +87,17 @@
 }
 
 .header a.navLinkActive {
-  border-bottom: 8px solid #45A29E;
+  border-bottom: 8px solid #66bcfc;
+}
+
+.header a.navLinkActive .icon {
+  background-color: #fc66bc;
 }
 
 .hero__img {
   background: url("../assets/images/Arcade.jpg") center no-repeat;
   background-size: cover;
-  height: 750px;
+  height: 80vh;
   width: 100%;
   position: relative;
 }
@@ -139,23 +136,24 @@
 .hero .contentBlock button.gamesBtn {
   margin-top: 90px;
   border-radius: 6px;
-  border: 1px solid #45A29E;
+  border: 1px solid #45a29e;
   width: 160px;
   height: 55px;
   font-size: 18px;
-  background-color: #0B0c10;
+  background-color: #0b0c10;
   color: white;
 }
 
 .hero .contentBlock button.gamesBtn:hover {
-  color: white;
+  border-color: white;
   color: #66fcf1;
 }
 
 .keyFeatures {
-  background-color: #C5C6C7;
+  background-color: #c5c6c7;
   padding-top: 100px;
   padding-bottom: 200px;
+  height: 70vh;
 }
 
 .keyFeatures .keyFeatures__content {
@@ -165,7 +163,7 @@
 .keyFeatures__title {
   font-size: 64px;
   margin: 32px 0px;
-  color: #0B0c10;
+  color: #0b0c10;
 }
 
 .keyFeatures .cardContainer {
@@ -179,11 +177,12 @@
 
 .keyFeatures .card {
   background-color: #1f2833;
-  border: 2px solid #45A29E;
+  border: 2px solid #45a29e;
   width: 30%;
   margin: 10px;
   color: white;
   height: 400px;
+  padding: 10px;
 }
 
 .keyFeatures .card__content {
@@ -213,7 +212,9 @@
   text-align: center;
 }
 
-.keyFeatures .icon1, .keyFeatures .icon2, .keyFeatures .icon3 {
+.keyFeatures .icon1,
+.keyFeatures .icon2,
+.keyFeatures .icon3 {
   margin: 15px;
   height: 80px;
   width: 80px;
@@ -227,6 +228,7 @@
   color: white;
   background-color: #1f2833;
   position: relative;
+  height: 80vh;
 }
 
 .gameCard .overlay {
@@ -238,7 +240,7 @@
 .gameCard .endlessRunnerImg {
   background: url("../assets/images/ER_gameplay.png") center no-repeat;
   background-size: cover;
-  height: 800px;
+  height: inherit;
 }
 
 .gameCard .contentBlock {
@@ -282,17 +284,17 @@
       -ms-flex-align: center;
           align-items: center;
   border-radius: 6px;
-  border: 1px solid #45A29E;
+  border: 1px solid #45a29e;
   width: 160px;
   height: 55px;
   font-size: 18px;
-  background-color: #0B0c10;
+  background-color: #0b0c10;
   margin-top: 20px;
   color: white;
 }
 
 .gameCard .playBtn:hover {
-  color: white;
+  border-color: white;
   color: #66fcf1;
 }
 
@@ -336,14 +338,90 @@ footer section .contactInfo h4 {
   font-size: 12px;
 }
 
-.canvasbox {
-  border-radius: 3px;
-  margin-right: 10px;
-  width: 450px;
-  height: 338px;
-  border-bottom: 3px solid #0063ff;
-  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
-          box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
-  background: #333;
+.gamePage .hero__img {
+  background: url("../assets/images/HighScores.jpg") center no-repeat;
+  background-size: cover;
+  height: 700px;
+  width: 100%;
+  position: relative;
+}
+
+.gamePage .hero .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: inherit;
+  width: inherit;
+}
+
+.gamePage .hero .contentBlock {
+  position: absolute;
+  top: 10%;
+  left: 180px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.gamePage .hero .contentBlock h1 {
+  font-size: 110px;
+  margin: 0px;
+}
+
+.gamePage .hero .contentBlock h2 {
+  margin: 0px;
+  font-size: 45px;
+  text-align: center;
+}
+
+.gamePage iframe {
+  margin: 0px auto;
+  border: none;
+  border: 8px solid #45a29e;
+}
+
+.gamePage .iframeContent {
+  position: relative;
+  background-color: #a19d9b;
+  padding: 150px 0px;
+}
+
+.gamePage .tracking {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 80px;
+  left: 100px;
+}
+
+.gamePage .tracking video {
+  display: none;
+}
+
+.gamePage .tracking #canvas {
+  margin: 0px;
+}
+
+.gamePage .tracking .canvasbox {
+  height: 300px;
+  width: 350px;
+  background-color: #0b0c10;
+}
+
+section.controls {
+  margin: 0px 180px;
+}
+
+section.controls h1 {
+  margin: 0px;
+  font-size: 100px;
 }
 /*# sourceMappingURL=App.css.map */

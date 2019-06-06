@@ -104,7 +104,7 @@ export default class handtrackTest extends React.Component {
 
   render() {
     return (
-      <>
+      <section className="tracking">
         <button onClick={this.toggleVideo}> Toggle Video </button>
         <video
           className="videobox canvasbox"
@@ -113,7 +113,7 @@ export default class handtrackTest extends React.Component {
           ref={this.video}
         />
         <canvas id="canvas" className="border canvasbox" ref={this.canvas} />
-      </>
+      </section>
     );
   }
 }

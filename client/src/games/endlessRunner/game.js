@@ -11,20 +11,15 @@ class RunnerScene extends Phaser.Scene {
     this.spawnTimer = null;
     this.scoreText = null;
     this.cursors = null;
-    this.log = () => {
-      console.log("!");
-    };
+
     window.addEventListener("message", event => {
       if (event.data === "swipeUp") {
-        console.log(this);
         this.playerJump();
       }
       // IMPORTANT: Check the origin of the data!
       if (~event.origin.indexOf("http://127.0.0.1:3000/")) {
         // The data has been sent from your site
-
         // The data sent with postMessage is stored in event.data
-        console.log(event.data, "!");
       } else {
         // The data hasn't been sent from your site!
         // Be careful! Do not use it.
@@ -192,6 +187,7 @@ class RunnerScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.body.setAllowDrag(true);
 
+    //MakeCursor
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Physics group for enemies
@@ -245,10 +241,11 @@ class RunnerScene extends Phaser.Scene {
   update() {
     if (this.gameOver) {
       this.spawnTimer.paused = true;
-      this.scene.pause()
+      this.scene.pause();
       let scoreCopy = this.score;
-      this.resetVariables()
-      this.scene.launch('GameOverScene', { score: scoreCopy })
+      this.input.keyboard.keys = [];
+      this.resetVariables();
+      this.scene.launch("GameOverScene", { score: scoreCopy });
       return;
     }
     let scrollSpeed = 6;
@@ -313,10 +310,10 @@ class RunnerScene extends Phaser.Scene {
   }
 
   resetVariables() {
-    // this.bg = null;
     this.score = 0;
     this.gameOver = false;
-    // this.spawnTimer = null;
+    this.spawnTimer = null;
+    // this.bg = null;
     // this.scoreText = "";
     // this.pause_label = "";
   }
@@ -325,22 +322,21 @@ class RunnerScene extends Phaser.Scene {
 class MainMenuScene extends Phaser.Scene {
   constructor() {
     super({ key: "MainMenuScene" });
-
   }
 
   preload() {
-    this.load.image('playButton', './assets/menu/playButton.png')
+    this.load.image("playButton", "./assets/menu/playButton.png");
   }
 
   create() {
-    let playBtn = this.add.image(400, 200, 'playButton')
+    let playBtn = this.add
+      .image(400, 200, "playButton")
       .setInteractive()
-      .setDisplaySize(300, 100)
+      .setDisplaySize(300, 100);
     playBtn.on("pointerdown", () => {
-      this.scene.start('RunnerScene')
-    })
+      this.scene.start("RunnerScene");
+    });
   }
-
 }
 
 class GameOverScene extends Phaser.Scene {
@@ -349,22 +345,23 @@ class GameOverScene extends Phaser.Scene {
   }
 
   init(data) {
-    console.log('INIT', data)
     this.score = data.score;
   }
 
   preload() {
-    this.load.image('playButton', './assets/menu/playButton.png')
+    this.load.image("playButton", "./assets/menu/playButton.png");
   }
 
   create() {
-    let playBtn = this.add.image(400, 300, 'playButton')
+    let playBtn = this.add
+      .image(400, 300, "playButton")
       .setInteractive()
-      .setDisplaySize(300, 100)
+      .setDisplaySize(300, 100);
     playBtn.on("pointerdown", () => {
-      this.scene.stop('RunnerScene')
-      this.scene.start('RunnerScene')
-    })
+      this.scene.stop("RunnerScene");
+      // this.scene.restart("RunnerScene");
+      this.scene.start("RunnerScene");
+    });
 
     let msgX = 320;
     this.add.text(msgX, 100, "Game Over...", {
@@ -385,7 +382,6 @@ class GameOverScene extends Phaser.Scene {
 class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: "PreloadScene" });
-
   }
   preload() {
     //Player
@@ -467,9 +463,8 @@ class PreloadScene extends Phaser.Scene {
       repeat: 0
     });
 
-    this.scene.start('MainMenuScene')
+    this.scene.start("MainMenuScene");
   }
-
 }
 
 let config = {

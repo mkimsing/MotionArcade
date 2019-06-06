@@ -21,24 +21,20 @@
     width: 120px;
     $ICONSIZE: 40px;
     .runnerIcon {
-      height: $ICONSIZE;
-      width: $ICONSIZE;
-      border-radius: 50%;
-      background-color: $GREY;
       mask-image: url("../assets/icons/runner.svg");
-      mask-position: center;
-      mask-repeat: no-repeat;
-      mask-size: contain;
     }
     .jetIcon {
+      mask-image: url("../assets/icons/jet.svg");
+    }
+
+    .icon {
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
       height: $ICONSIZE;
       width: $ICONSIZE;
       border-radius: 50%;
       background-color: $GREY;
-      mask-image: url("../assets/icons/jet.svg");
-      mask-position: center;
-      mask-repeat: no-repeat;
-      mask-size: contain;
     }
   }
 
@@ -60,11 +56,13 @@
 
     &:hover {
       color: $TEAL;
-      // border-bottom-color: $LIGHTTEAL;
     }
   }
 
   a.navLinkActive {
-    border-bottom: 8px solid $DARKTEAL;
+    border-bottom: 8px solid $BLUE;
+    .icon {
+      background-color: $PINK;
+    }
   }
 }

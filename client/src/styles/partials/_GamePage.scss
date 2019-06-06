@@ -1,0 +1,78 @@
+.gamePage {
+  .hero {
+    &__img {
+      background: url("../assets/images/HighScores.jpg") center no-repeat;
+      background-size: cover;
+      height: 700px;
+      width: 100%;
+      position: relative;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      height: inherit;
+      width: inherit;
+    }
+
+    .contentBlock {
+      position: absolute;
+      top: 10%;
+      left: 180px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      h1 {
+        font-size: 110px;
+        margin: 0px;
+      }
+
+      h2 {
+        margin: 0px;
+        font-size: 45px;
+        text-align: center;
+      }
+    }
+  }
+
+  iframe {
+    margin: 0px auto;
+    border: none;
+    border: 8px solid $DARKTEAL;
+  }
+
+  .iframeContent {
+    position: relative;
+    background-color: $GREY;
+    padding: 150px 0px;
+  }
+
+  .tracking {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 100px;
+
+    video {
+      display: none;
+    }
+
+    #canvas {
+      margin: 0px;
+    }
+
+    .canvasbox {
+      height: 300px;
+      width: 350px;
+      background-color: $BLACK;
+    }
+  }
+}
+
+section.controls {
+  margin: 0px 180px;
+  h1 {
+    margin: 0px;
+    font-size: 100px;
+  }
+}

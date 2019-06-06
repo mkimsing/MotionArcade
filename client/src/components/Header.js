@@ -16,7 +16,7 @@ export default function Header() {
               className="navLink"
               to="/Game1"
             >
-              <div className="runnerIcon" />
+              <div className="runnerIcon icon" />
               Endless Runner
             </NavLink>
           </div>
@@ -26,7 +26,7 @@ export default function Header() {
               className="navLink"
               to="/Game2"
             >
-              <div className="jetIcon" />
+              <div className="jetIcon icon" />
               Galaga Lite
             </NavLink>
           </div>

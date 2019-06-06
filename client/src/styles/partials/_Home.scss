@@ -2,7 +2,7 @@
   &__img {
     background: url("../assets/images/Arcade.jpg") center no-repeat;
     background-size: cover;
-    height: 750px;
+    height: 80vh; //750px;
     width: 100%;
     position: relative;
   }
@@ -42,8 +42,8 @@
       color: white;
 
       &:hover {
-        color: white;
-        color:$TEAL;
+        border-color: white;
+        color: $TEAL;
       }
     }
   }
@@ -53,16 +53,17 @@
   background-color: $LIGHTGREY;
   padding-top: 100px;
   padding-bottom: 200px;
-  .keyFeatures__content{
+  height: 70vh;
+  .keyFeatures__content {
     margin: 0px 180px;
   }
-  &__title{
+  &__title {
     font-size: 64px;
     margin: 32px 0px;
     color: $BLACK;
   }
 
-  .cardContainer{
+  .cardContainer {
     display: flex;
     justify-content: space-evenly;
   }
@@ -71,9 +72,9 @@
     border: 2px solid $DARKTEAL;
     width: 30%;
     margin: 10px;
-    color:white;
+    color: white;
     height: 400px;
-
+    padding: 10px;
     &__content {
       display: flex;
       flex-direction: column;
@@ -81,17 +82,19 @@
       align-items: center;
     }
 
-    h2{
+    h2 {
       color: $TEAL;
       margin: 5px;
       font-size: 32px;
-    }  
-    h3{
+    }
+    h3 {
       margin: 5px;
       text-align: center;
     }
   }
-  .icon1, .icon2, .icon3 {
+  .icon1,
+  .icon2,
+  .icon3 {
     margin: 15px;
     height: 80px;
     width: 80px;
@@ -102,47 +105,47 @@
   }
 }
 
-.gameCard{
-  color:white;
+.gameCard {
+  color: white;
   background-color: $DARKGREY;
   position: relative;
-
+  height: 80vh;
   .overlay {
     background-color: rgba(0, 0, 0, 0.4);
     height: inherit;
     width: inherit;
   }
 
-  .endlessRunnerImg{
-    background: url('../assets/images/ER_gameplay.png') center no-repeat;
+  .endlessRunnerImg {
+    background: url("../assets/images/ER_gameplay.png") center no-repeat;
     background-size: cover;
-    height: 800px;
+    height: inherit;
     // width: 100%;
   }
-  .contentBlock{
-    display:flex;
+  .contentBlock {
+    display: flex;
     flex-direction: column;
     align-items: flex-end;
     position: absolute;
     right: 180px;
     top: 150px;
-    .gameCard__title{
+    .gameCard__title {
       color: $TEAL;
       font-size: 90px;
       margin: 0px;
     }
 
-    h2{
-      margin:10px 0px;;
+    h2 {
+      margin: 10px 0px;
       width: 670px;
       text-align: right;
       font-size: 32px;
     }
   }
 
-  .playBtn{
+  .playBtn {
     text-decoration: none;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 6px;
@@ -155,12 +158,12 @@
     color: white;
 
     &:hover {
-      color: white;
-      color:$TEAL;
+      border-color: white;
+      color: $TEAL;
     }
   }
 
-  .highlight{
+  .highlight {
     color: $ORANGE;
   }
 }
