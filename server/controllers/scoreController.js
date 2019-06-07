@@ -16,20 +16,17 @@ const scoreController = {
       });
   },
   postScore: scoreObj => {
-    if (!scoreObj || !scoreObj.name || !scoreObj.score) {
-      return {
-        error: {
-          status: 400,
-          msg: "Please provide a JSON object with name and score"
-        }
-      };
-    }
-    return Score.findOrCreate({ where: scoreObj })
+    return Score.findOrCreate({
+      where: { name: scoreObj.name },
+      defaults: scoreObj
+    })
       .then(([entry, created]) => {
         if (created) {
           return entry;
         } else {
           //Update the entry
+          entry.update({ score: scoreObj.score }).then(() => { });
+          return entry;
         }
       })
       .catch(err => {
@@ -42,9 +39,17 @@ const scoreController = {
         };
       });
   },
-  getScoreForPlayer: name => {
+  getScoresForPlayer: name => {
     return Score.findAll({ where: { name: name } })
       .then(scores => {
+        if (scores.length === 0) {
+          return {
+            error: {
+              status: 404,
+              msg: `No entry with name ${name} found`
+            }
+          };
+        }
         return scores;
       })
       .catch(err => {

@@ -22,17 +22,23 @@ app
     });
   })
   .post("/endlessrunner", (req, res) => {
-    scoreController.postScore(req.body).then(response => {
-      if (!response.error) {
-        res.status(201).json(response);
-      } else {
-        res.status(response.error.status).send(response.error.msg);
-      }
-    });
+    if (!req.body || !req.body.name || !req.body.score) {
+      res.status(400).send("Please provide a JSON object with name and score");
+    } else {
+      scoreController.postScore(req.body).then(response => {
+        if (!response.error) {
+          res.status(201).json(response);
+        } else {
+          res.status(response.error.status).send(response.error.msg);
+        }
+      })
+    }
   });
 
+//NOTE: Returns an array (but array should only have one item inside)
+//TODO change this to return only object?
 app.get("/endlessrunner/:name", (req, res) => {
-  scoreController.getScoreForPlayer(req.body).then(response => {
+  scoreController.getScoresForPlayer(req.params.name).then(response => {
     if (!response.error) {
       res.json(response);
     } else {
