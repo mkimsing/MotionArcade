@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix ./../client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.8.7"
+    "sequelize": "^5.8.7",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }
