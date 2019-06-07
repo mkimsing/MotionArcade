@@ -12,7 +12,6 @@ export default class iframeContainer extends Component {
     window.addEventListener(
       "swipeUp",
       e => {
-        console.log("Swipe Up Event!");
         var frame = document.getElementById("endlessRunnerIframe");
         frame.contentWindow.postMessage("swipeUp", "*");
       },
