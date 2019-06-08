@@ -1,13 +1,13 @@
 const scoreController = require("./controllers/scoreController");
 const express = require("express");
 const app = express();
-const cors = require('cors')
+const cors = require("cors");
 
 //Ensure routes are defined before listening
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
@@ -33,14 +33,34 @@ app
         } else {
           res.status(response.error.status).send(response.error.msg);
         }
-      })
+      });
     }
   });
 
 //NOTE: Returns an array (but array should only have one item inside)
 //TODO change this to return only object?
-app.get("/endlessrunner/:name", (req, res) => {
+app.get("/endlessrunner/scores/:name", (req, res) => {
   scoreController.getScoresForPlayer(req.params.name).then(response => {
+    if (!response.error) {
+      res.json(response);
+    } else {
+      res.status(response.error.status).send(response.error.msg);
+    }
+  });
+});
+
+app.get("/endlessrunner/topScores", (req, res) => {
+  scoreController.getTopRankings(5).then(response => {
+    if (!response.error) {
+      res.json(response);
+    } else {
+      res.status(response.error.status).send(response.error.msg);
+    }
+  });
+});
+
+app.get("/endlessrunner/ranks/:name", (req, res) => {
+  scoreController.getSurroundingRankings(req.params.name).then(response => {
     if (!response.error) {
       res.json(response);
     } else {

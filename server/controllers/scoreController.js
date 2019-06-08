@@ -25,7 +25,7 @@ const scoreController = {
           return entry;
         } else {
           //Update the entry
-          entry.update({ score: scoreObj.score }).then(() => { });
+          entry.update({ score: scoreObj.score }).then(() => {});
           return entry;
         }
       })
@@ -60,6 +60,36 @@ const scoreController = {
           }
         };
       });
+  },
+  getTopRankings: num => {
+    return Score.findAll({ order: [["score", "DESC"]] }).then(results => {
+      return results.slice(0, num);
+    });
+  },
+  //Get the +(N-1), -(N-1) rankings around a player's score
+  // N = 3
+  //Returns 2(N-1) + 1 entries
+  //eg. if N = 3, Returns 5 rankings, where name matches, 2 above and 2 below
+  getSurroundingRankings: name => {
+    return Score.findAll({ order: [["score", "DESC"]] }).then(scores => {
+      let foundIndex = scores.findIndex(row => {
+        return row.name === name;
+      });
+      if (foundIndex === -1) {
+        return {
+          error: {
+            status: 404,
+            msg: `No entry with name ${name} found`
+          }
+        };
+      }
+      let num = 3;
+      let startIndex = 0;
+      if (!(foundIndex - num <= 0)) {
+        startIndex = foundIndex - num + 1;
+      }
+      return scores.slice(startIndex, foundIndex + num);
+    });
   }
 };
 
