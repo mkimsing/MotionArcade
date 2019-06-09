@@ -1,5 +1,6 @@
 import React from "react";
 import IFrameContainer from "../containers/iframeContainer";
+import LeaderboardContainer from "../containers/ScoresContainer";
 export default function GamePage() {
   return (
     <div className="gamePage">
@@ -10,6 +11,7 @@ export default function GamePage() {
             <h1>Endless Runner</h1>
             <h2>Run till you die!</h2>
           </div>
+          <LeaderboardContainer />
         </div>
       </section>
       <IFrameContainer />

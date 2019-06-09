@@ -424,4 +424,121 @@ section.controls h1 {
   margin: 0px;
   font-size: 100px;
 }
+
+.leaderboard {
+  position: absolute;
+  bottom: 30px;
+  right: 15%;
+  width: 30%;
+  background-color: #1f2833;
+  color: white;
+  border: 2px solid #45a29e;
+  border-radius: 5px;
+}
+
+.leaderboard .headers {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  border-bottom: 3px #45a29e solid;
+}
+
+.leaderboard .headers__ranking, .leaderboard .headers__score, .leaderboard .headers__name {
+  margin: 5px 0px;
+  color: #a666fc;
+  font-size: 32px;
+}
+
+.leaderboard .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.leaderboard .row .ranking, .leaderboard .row .score, .leaderboard .row .name {
+  margin: 14px 0px;
+  margin-right: 19.5%;
+  font-size: 24px;
+}
+
+.leaderboard .row .ranking {
+  margin-left: 20%;
+  color: white;
+}
+
+.leaderboard .row .score {
+  color: #fcd466;
+}
+
+.leaderboard .row .name {
+  color: #fc8966;
+}
+
+.leaderboard .lastUpdated {
+  text-align: right;
+  margin-right: 10px;
+}
+
+.leaderboard .lastUpdatedFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+.leaderboard .refreshBtn {
+  -webkit-mask-image: url("../assets/icons/refresh.svg");
+          mask-image: url("../assets/icons/refresh.svg");
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  margin: 0px 5px;
+  background-color: #2eff31;
+}
+
+.leaderboard .refreshBtn:hover {
+  background-color: white;
+}
+
+.leaderboard .spinning {
+  -webkit-animation: spin 0.25s linear;
+          animation: spin 0.25s linear;
+}
 /*# sourceMappingURL=App.css.map */
