@@ -1,16 +1,9 @@
+const width = 800;
+const height = 600;
+
 class RunnerScene extends Phaser.Scene {
   constructor() {
     super({ key: "RunnerScene" });
-
-    this.player = null;
-    this.platforms = null;
-    this.skeletonList;
-    this.bg = null;
-    this.score = 0;
-    this.gameOver = false;
-    this.spawnTimer = null;
-    this.scoreText = null;
-    this.cursors = null;
 
     window.addEventListener("message", event => {
       if (event.data === "swipeUp") {
@@ -26,6 +19,11 @@ class RunnerScene extends Phaser.Scene {
         return;
       }
     });
+
+    this.player = null;
+    this.platforms = null;
+    this.skeletonList = null;
+    this.bg = null;
   }
 
   preload() {
@@ -95,6 +93,12 @@ class RunnerScene extends Phaser.Scene {
   }
 
   create() {
+    //INIT VARIABLES
+    this.score = 0;
+    this.gameOver = false;
+    this.spawnTimer = null;
+    this.scoreText = null;
+    this.cursors = null;
     //BG Image
     this.bg = this.add
       .image(game.config.width / 2, game.config.height / 2, "bg")
@@ -187,7 +191,8 @@ class RunnerScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.body.setAllowDrag(true);
 
-    //MakeCursor
+    //Clear, then make keys
+    this.input.keyboard.keys = [];
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // Physics group for enemies
@@ -212,21 +217,22 @@ class RunnerScene extends Phaser.Scene {
     };
 
     //  The score
-    this.scoreText = this.add.text(50, 32, "Score: 0", {
+    this.scoreText = this.add.text(game.config.width - 220, 24, "Score: 0", {
       fontSize: "24px",
       fill: "#FFF"
     });
+    this.scoreText.setDepth(2);
 
-    // Restart Label/Button
-    let restartBtn = this.add.text(650, 32, "Restart", {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
-    restartBtn.setInteractive();
-    restartBtn.on("pointerdown", () => {
-      this.resetVariables();
-      this.scene.restart();
-    });
+    // // Restart Label/Button
+    // let restartBtn = this.add.text(650, 32, "Restart", {
+    //   fontSize: "24px",
+    //   fill: "#FFF"
+    // });
+    // restartBtn.setInteractive();
+    // restartBtn.on("pointerdown", () => {
+    //   this.resetVariables();
+    //   this.scene.restart();
+    // });
 
     //Timer to control skeleton spawning
     this.spawnTimer = this.time.addEvent({
@@ -243,9 +249,8 @@ class RunnerScene extends Phaser.Scene {
       this.spawnTimer.paused = true;
       this.scene.pause();
       let scoreCopy = this.score;
-      this.input.keyboard.keys = [];
       this.resetVariables();
-      // this.scene.launch("GameOverScene", { score: scoreCopy });
+      this.scoreText.destroy()
       this.scene.launch("Highscore", { score: scoreCopy });
       return;
     }
@@ -314,9 +319,6 @@ class RunnerScene extends Phaser.Scene {
     this.score = 0;
     this.gameOver = false;
     this.spawnTimer = null;
-    // this.bg = null;
-    // this.scoreText = "";
-    // this.pause_label = "";
   }
 }
 
@@ -326,56 +328,40 @@ class MainMenuScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("playButton", "./assets/menu/playButton.png");
+    this.load.bitmapFont(
+      "arcade",
+      "./assets/fonts/arcade.png",
+      "./assets/fonts/arcade.xml"
+    );
   }
 
   create() {
+    this.input.keyboard.on("keyup_ENTER", this.changeScenes, this);
+    this.add
+      .bitmapText(150, 200, "arcade", "Endless Runner")
+      .setTint(0x66fcf1)
+      .setFontSize(36)
     let playBtn = this.add
-      .image(400, 200, "playButton")
-      .setInteractive()
-      .setDisplaySize(300, 100);
+      .bitmapText(325, 300, "arcade", "Play")
+      .setTint(0x66bcfc)
+    playBtn.setInteractive(new Phaser.Geom.Rectangle(0, 0, playBtn.width, playBtn.height),
+      Phaser.Geom.Rectangle.Contains)
+    this.playBtnTween = this.tweens.add({
+      targets: playBtn,
+      alpha: 0.2,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+      duration: 450
+    });
     playBtn.on("pointerdown", () => {
-      this.scene.start("RunnerScene");
+      this.changeScenes()
     });
   }
-}
 
-class GameOverScene extends Phaser.Scene {
-  constructor() {
-    super({ key: "GameOverScene" });
-  }
-
-  init(data) {
-    this.score = data.score;
-  }
-
-  preload() {
-    this.load.image("playButton", "./assets/menu/playButton.png");
-  }
-
-  create() {
-    let playBtn = this.add
-      .image(400, 500, "playButton")
-      .setInteractive()
-      .setDisplaySize(300, 100);
-    playBtn.on("pointerdown", () => {
-      this.scene.stop("RunnerScene");
-      this.scene.start("RunnerScene");
-    });
-
-    let msgX = 320;
-    this.add.text(msgX, 100, "Game Over...", {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
-    this.add.text(msgX - 30, 150, `You Scored: ${this.score}`, {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
-    this.add.text(msgX, 200, "Play Again?", {
-      fontSize: "24px",
-      fill: "#FFF"
-    });
+  changeScenes() {
+    this.playBtnTween.stop()
+    this.scene.start("RunnerScene");
   }
 }
 
@@ -478,19 +464,19 @@ class InputPanel extends Phaser.Scene {
     this.chars = [
       ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],
       ["K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"],
-      ["U", "V", "W", "X", "Y", "Z", ".", "-", "<", ">"]
+      ["U", "V", "W", "X", "Y", "Z", ".", "-", "", ""]
     ];
+    this.charLimit = 8;
+  }
 
+  create() {
     this.cursor = new Phaser.Math.Vector2();
 
     this.text;
     this.block;
 
     this.name = "";
-    this.charLimit = 8;
-  }
 
-  create() {
     let text = this.add.bitmapText(
       130,
       50,
@@ -608,6 +594,10 @@ class InputPanel extends Phaser.Scene {
 
       this.cursor.set(x, y);
       this.pressKey();
+    } else if (
+      code === Phaser.Input.Keyboard.KeyCodes.ENTER
+    ) {
+      this.cursor.set(9, 2);
     }
   }
 
@@ -627,7 +617,8 @@ class InputPanel extends Phaser.Scene {
       this.name = this.name.substr(0, nameLength - 1);
 
       this.events.emit("updateName", this.name);
-    } else if (this.name.length < this.charLimit) {
+    }
+    else if (this.name.length < this.charLimit) {
       //  Add
       this.name = this.name.concat(this.chars[y][x]);
 
@@ -698,7 +689,10 @@ class Highscore extends Phaser.Scene {
   constructor() {
     super({ key: "Highscore" });
 
-    this.playerText;
+    this.baseHeight = 250;
+    this.textStartWidth = 80;
+    this.playText = 'Play Again';
+    this.menuText = 'Main Menu';
   }
 
   preload() {
@@ -718,17 +712,19 @@ class Highscore extends Phaser.Scene {
   }
 
   create() {
+    this.cursor1 = null;
+    this.cursor2 = null;
+    this.playerText = null;
     this.add
-      .bitmapText(100, 260, "arcade", "RANK  SCORE   NAME")
-      .setTint(0xff00ff);
-    this.add
-      .bitmapText(100, 310, "arcade", `???   ${this.playerScore}`)
+      .bitmapText(this.textStartWidth, this.baseHeight, "arcade", "RANK  SCORE   NAME")
+      .setTint(0x66bcfc)
+    this.playerRow = this.add
+      .bitmapText(this.textStartWidth, this.baseHeight + 50, "arcade", `???   ${this.playerScore}`)
       .setTint(0xff0000);
 
     this.playerText = this.add
-      .bitmapText(500, 310, "arcade", "")
+      .bitmapText(500, this.baseHeight + 50, "arcade", "")
       .setTint(0xff0000);
-
     //  Do this, otherwise this Scene will steal all keyboard input
     this.input.keyboard.enabled = false;
 
@@ -744,34 +740,141 @@ class Highscore extends Phaser.Scene {
 
   submitName() {
     this.scene.stop("InputPanel");
-    console.log(this.playerText.text);
+    this.playerRow.destroy();
+    this.playerText.destroy();
+    if (this.cursor1) {
+      this.cursor1.destroy();
+    }
+    if (this.cursor2) {
+      this.cursor2.destroy();
+
+    }
+    this.input.keyboard.enabled = true;
+    this.input.keyboard.on("keyup_ENTER", this.changeScenes, this);
+    this.input.keyboard.on("keyup_UP", this.moveUp, this);
+    this.input.keyboard.on("keyup_DOWN", this.moveDown, this);
+
+    this.playBtn = this.add
+      .bitmapText(230, 32, "arcade", this.playText)
+      .setTint(0xa666fc)
+    this.playBtn.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.playBtn.width, this.playBtn.height),
+      Phaser.Geom.Rectangle.Contains)
+    this.selectedScene = 'RunnerScene'
+    this.playBtn.on("pointerdown", () => {
+      this.selectedScene = 'RunnerScene'
+      this.changeScenes()
+    });
+
+    this.menuBtn = this.add
+      .bitmapText(245, 80, "arcade", this.menuText)
+      .setTint(0xa666fc)
+    this.menuBtn.setInteractive(new Phaser.Geom.Rectangle(0, 0, this.menuBtn.width, this.menuBtn.height),
+      Phaser.Geom.Rectangle.Contains)
+    this.menuBtn.on("pointerdown", () => {
+      this.selectedScene = 'MainMenuScene'
+      this.changeScenes()
+    });
+
+    this.cursor1 = this.add
+      .bitmapText(0, 0, "arcade", '-')
+    this.cursor1.setPosition(230 - this.cursor1.width - 10, 32)
+    this.tweens.add({
+      targets: this.cursor1,
+      alpha: 0.2,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+      duration: 450
+    });
+    this.cursor2 = this.add
+      .bitmapText(0, 0, "arcade", '-')
+    this.cursor2.setPosition(230 + this.playBtn.width + 10, 32)
+    this.tweens.add({
+      targets: this.cursor2,
+      alpha: 0.2,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.easeInOut",
+      duration: 450
+    });
+
+
     axios
       .post(`http://localhost:8080/endlessrunner/`, {
         name: this.playerText.text,
         score: this.playerScore
       })
       .then(response => {
+        let isHighscore = response.data.highScore
+        let wasCreated = response.data.created
         axios
           .get(
             `http://localhost:8080/endlessrunner/ranks/${this.playerText.text}`
           )
           .then(response => {
-            // Print out data entries here
+            this.add.bitmapText(this.textStartWidth + 200, this.baseHeight - 80, "arcade",
+              `Game Over \n\nScore: ${this.playerScore}`)
+              .setTint(0xff0000).setFontSize(20);
+            response.data.forEach((entry, i) => {
+              let ranking = `${entry.ranking}`
+              let score = `${entry.score}`
+              let name = `${entry.name}`
+              let textHeight = this.baseHeight + 50 + i * 60;
+              while (ranking.length < 4) {
+                ranking = ranking.concat(' ')
+              }
+              while (score.length < 4) {
+                score = score.concat(' ')
+              }
+              let str = ranking + "  " + score + "   " + name
+              let row = this.add
+                .bitmapText(this.textStartWidth, textHeight, "arcade", str)
+              if (entry.name === this.playerText.text) {
+                if (isHighscore || wasCreated) {
+                  this.tweens.add({
+                    targets: row,
+                    alpha: 0.2,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: "Sine.easeInOut",
+                    duration: 450
+                  });
+                  this.add.bitmapText(this.textStartWidth + 110, textHeight, "arcade",
+                    "New High-Score!"
+                  ).setFontSize(14).setRotation(-0.15).setTint(0xfcd466)
+                }
+                else if (!isHighscore && !wasCreated) {
+                  this.add.bitmapText(this.textStartWidth + 80, textHeight + 5, "arcade",
+                    "Previous High-Score"
+                  ).setFontSize(14).setRotation(-0.15)
+                }
+                row.setTint(0x66fcf1)
+              } else {
+                row.setTint(0xa19d9b);
+              }
+            })
           });
       });
+  }
 
-    this.add
-      .bitmapText(100, 360, "arcade", "2ND   40000    ANT")
-      .setTint(0xff8200);
-    this.add
-      .bitmapText(100, 410, "arcade", "3RD   30000    .-.")
-      .setTint(0xffff00);
-    this.add
-      .bitmapText(100, 460, "arcade", "4TH   20000    BOB")
-      .setTint(0x00ff00);
-    this.add
-      .bitmapText(100, 510, "arcade", "5TH   10000    ZIK")
-      .setTint(0x00bfff);
+  moveUp() {
+    this.selectedScene = "RunnerScene"
+    this.cursor1.setPosition(230 - this.cursor1.width - 10, 32)
+    this.cursor2.setPosition(230 + this.playBtn.width + 10, 32)
+  }
+
+  moveDown() {
+    this.cursor1.setPosition(245 - this.cursor1.width - 10, 80)
+    this.cursor2.setPosition(245 + this.menuBtn.width + 10, 80)
+    this.selectedScene = "MainMenuScene"
+  }
+
+  changeScenes() {
+    this.scene.stop('Highscore')
+    this.scene.stop('Starfield')
+    this.scene.stop('MainMenuScene')
+    this.scene.stop('RunnerScene')
+    this.scene.start(this.selectedScene);
   }
 
   updateName(name) {
@@ -781,8 +884,8 @@ class Highscore extends Phaser.Scene {
 
 let config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: width,
+  height: height,
   pixelArt: true,
   physics: {
     default: "arcade",
@@ -795,7 +898,6 @@ let config = {
     PreloadScene,
     MainMenuScene,
     RunnerScene,
-    GameOverScene,
     Starfield,
     Highscore,
     InputPanel

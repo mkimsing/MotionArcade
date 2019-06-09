@@ -1,16 +1,23 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
+      
+      Example:
+      return queryInterface.bulkInsert('People', [{
+        name: 'John Doe',
+        isBetaMember: false
+      }], {});
     */
+
     return queryInterface.bulkInsert(
       "Scores",
       [
         {
-          name: "cmorilla0",
+          name: "cmorilla",
           score: "0"
         },
         {
@@ -19,115 +26,115 @@ module.exports = {
         },
         {
           name: "svittel2",
-          score: "31382"
-        },
-        {
-          name: "rfaughnan3",
-          score: "34600"
-        },
-        {
-          name: "lcompston4",
-          score: "71641"
-        },
-        {
-          name: "mlingard5",
-          score: "2900"
-        },
-        {
-          name: "ngremain6",
-          score: "9825"
-        },
-        {
-          name: "bsonnenschein7",
-          score: "700"
-        },
-        {
-          name: "modonohue8",
-          score: "8709"
-        },
-        {
-          name: "kjanic9",
-          score: "65168"
-        },
-        {
-          name: "ndecarolisa",
-          score: "7"
-        },
-        {
-          name: "gbollisb",
-          score: "315"
-        },
-        {
-          name: "murenc",
-          score: "59"
-        },
-        {
-          name: "ddoringd",
-          score: "8932"
-        },
-        {
-          name: "cgrunwalle",
-          score: "482"
-        },
-        {
-          name: "rwesthoferf",
-          score: "52260"
-        },
-        {
-          name: "agoudieg",
-          score: "76"
-        },
-        {
-          name: "jfursseh",
-          score: "5"
-        },
-        {
-          name: "rarundelli",
-          score: "8169"
-        },
-        {
-          name: "hmcfaellj",
-          score: "3050"
-        },
-        {
-          name: "dvanbrugk",
-          score: "60300"
-        },
-        {
-          name: "dcraggl",
           score: "200"
         },
         {
-          name: "rdennettm",
-          score: "1"
+          name: "rjacobs",
+          score: "3000"
         },
         {
-          name: "ecrinionn",
-          score: "1200"
+          name: "ljones",
+          score: "200"
         },
         {
-          name: "arojahno",
-          score: "8450"
+          name: "mlingard",
+          score: "2900"
         },
         {
-          name: "dlaitp",
-          score: "85301"
-        },
-        {
-          name: "hdwellyq",
+          name: "gremlin",
           score: "100"
         },
         {
-          name: "rdermottr",
+          name: "bomb",
+          score: "700"
+        },
+        {
+          name: "elk",
+          score: "800"
+        },
+        {
+          name: "boats",
+          score: "1000"
+        },
+        {
+          name: "nedra",
+          score: "900"
+        },
+        {
+          name: "gbol",
+          score: "2500"
+        },
+        {
+          name: "murenc",
+          score: "400"
+        },
+        {
+          name: "ddoring",
+          score: "700"
+        },
+        {
+          name: "grunwall",
+          score: "1200"
+        },
+        {
+          name: "rwest",
+          score: "1300"
+        },
+        {
+          name: "a",
+          score: "2100"
+        },
+        {
+          name: "jfursseh",
+          score: "1500"
+        },
+        {
+          name: "undelli",
+          score: "1600"
+        },
+        {
+          name: "klipsh",
+          score: "2200"
+        },
+        {
+          name: "bruh",
+          score: "800"
+        },
+        {
+          name: "lmnop",
+          score: "200"
+        },
+        {
+          name: "rat",
+          score: "100"
+        },
+        {
+          name: "jake",
+          score: "1200"
+        },
+        {
+          name: "awoo",
+          score: "800"
+        },
+        {
+          name: "lids",
+          score: "1700"
+        },
+        {
+          name: "hi",
+          score: "100"
+        },
+        {
+          name: "zerg",
           score: "0"
         },
         {
-          name: "gmusslewhites",
-          score: "36220"
+          name: "whites",
+          score: "300"
         },
         {
-          name: "spridittt",
-          score: "300"
+          name: "sprite",
+          score: "600"
         }
       ],
       {}
@@ -142,5 +149,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+    return queryInterface.bulkDelete('Scores', null, {});
   }
 };
