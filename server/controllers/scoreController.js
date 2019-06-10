@@ -104,7 +104,6 @@ const scoreController = {
         }
         let num = 3;
         let startIndex = 0;
-        console.log(foundIndex)
         if ((foundIndex - num) >= 0) {
           startIndex = foundIndex - num + 1;
         } else {

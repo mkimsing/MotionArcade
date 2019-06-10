@@ -39,7 +39,6 @@ export default class handtrackTest extends React.Component {
     handTrack.startVideo(this.video.current).then(status => {
       console.log("Video Started", status);
       if (status) {
-        // updateNote.innerText = "Video started. Now tracking"
         this.isVideo = true;
         this.runDetection();
       } else {
@@ -61,10 +60,6 @@ export default class handtrackTest extends React.Component {
       this.props.postIframeMsg({
         type: 'disableCameraControls'
       })
-      //Unused threading stuff
-      if (this.thread) {
-        this.thread.kill();
-      }
     }
   };
 

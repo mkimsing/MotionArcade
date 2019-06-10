@@ -274,7 +274,6 @@ class RunnerScene extends Phaser.Scene {
     if (this.spawnRangeEnd > 1900 && this.spawnRangeStart === 500) {
       this.spawnRangeEnd -= 200
     }
-    console.log("Up Difficulty!", this.spawnRangeStart, this.spawnRangeEnd)
     this.spawnTimer.reset({
       delay: Phaser.Math.Between(this.spawnRangeStart, this.spawnRangeEnd), // ms
       callback: this.spawnerCallback,
