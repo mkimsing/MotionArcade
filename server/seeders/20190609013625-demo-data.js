@@ -30,7 +30,7 @@ module.exports = {
         },
         {
           name: "rjacobs",
-          score: "3000"
+          score: "1100"
         },
         {
           name: "ljones",
@@ -38,7 +38,7 @@ module.exports = {
         },
         {
           name: "mlingard",
-          score: "2900"
+          score: "1900"
         },
         {
           name: "gremlin",
@@ -62,7 +62,7 @@ module.exports = {
         },
         {
           name: "gbol",
-          score: "2500"
+          score: "200"
         },
         {
           name: "murenc",
@@ -85,7 +85,7 @@ module.exports = {
           score: "2100"
         },
         {
-          name: "jfursseh",
+          name: "mkimsing",
           score: "1500"
         },
         {
@@ -94,7 +94,7 @@ module.exports = {
         },
         {
           name: "klipsh",
-          score: "2200"
+          score: "1300"
         },
         {
           name: "bruh",
@@ -126,7 +126,7 @@ module.exports = {
         },
         {
           name: "zerg",
-          score: "0"
+          score: "100"
         },
         {
           name: "whites",

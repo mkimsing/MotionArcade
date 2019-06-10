@@ -21,7 +21,7 @@ export default class handtrackTest extends React.Component {
   componentDidMount() {
     this.context = this.canvas.current.getContext("2d");
     const modelParams = {
-      flipHorizontal: false, // flip e.g for video
+      flipHorizontal: true, // flip e.g for video
       maxNumBoxes: 1, // maximum number of boxes to detect
       iouThreshold: 0.5, // ioU threshold for non-max suppression
       scoreThreshold: 0.6 // confidence threshold for predictions.
@@ -37,7 +37,7 @@ export default class handtrackTest extends React.Component {
 
   startVideo = () => {
     handTrack.startVideo(this.video.current).then(status => {
-      console.log("video started", status);
+      console.log("Video Started", status);
       if (status) {
         // updateNote.innerText = "Video started. Now tracking"
         this.isVideo = true;
@@ -51,9 +51,17 @@ export default class handtrackTest extends React.Component {
   toggleVideo = () => {
     if (!this.isVideo) {
       this.startVideo();
+
+      this.props.postIframeMsg({
+        type: 'enableCameraControls'
+      })
     } else {
       handTrack.stopVideo(this.video.current);
       this.isVideo = false;
+      this.props.postIframeMsg({
+        type: 'disableCameraControls'
+      })
+      //Unused threading stuff
       if (this.thread) {
         this.thread.kill();
       }
@@ -61,6 +69,11 @@ export default class handtrackTest extends React.Component {
   };
 
   runDetection = () => {
+    if (this.video) {
+      this.props.postIframeMsg({
+        type: 'enableCameraControls'
+      })
+    }
     this.model.detect(this.video.current).then(predictions => {
       if (predictions[0]) {
         let x = predictions[0].bbox[0];
@@ -73,23 +86,46 @@ export default class handtrackTest extends React.Component {
           y: y
         };
 
-        // console.log(this.currentLocation)
         this.prevLocations.unshift(location);
-        // console.log(this.prevLocations)
         this.counter++;
         if (this.counter > 30) {
           this.prevLocations.pop();
         }
+
+
+        /**===============================
+         * Swipe Up
+         ===============================*/
         let isSwipeUp = this.prevLocations
           .map(prevLocation => this.currentLocation.y - prevLocation.y)
-          .some(difference => difference <= -80);
+          .some(difference => difference <= -110);
+
         if (isSwipeUp) {
+          let msg = {
+            type: 'swipeUp'
+          }
           //Reset previous locations after triggering the action
           this.prevLocations = this.prevLocations.map(_item => location);
-          console.log("SWIPE UP");
-          window.dispatchEvent(this.props.events[0]);
+          this.props.postIframeMsg(msg)
+        }
+        /**============================
+         * Swipe Right
+         =============================*/
+        let isSwipeRight = this.prevLocations
+          .map(prevLocation => this.currentLocation.x - prevLocation.x)
+          .some(difference => difference >= 110);
+        if (isSwipeRight) {
+          //Reset previous locations after triggering the action
+          this.prevLocations = this.prevLocations.map(_item => location);
+          this.props.postIframeMsg({ type: 'swipeRight' })
         }
       }
+
+      // this.props.postIframeMsg({
+      //   type: "XPosition",
+      //   percentX: this.currentLocation.x / this.canvas.current.width
+      // })
+
       this.model.renderPredictions(
         predictions,
         this.canvas.current,

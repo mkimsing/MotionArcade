@@ -8,16 +8,10 @@ export default class iframeContainer extends Component {
     this.events = [new Event("swipeUp")];
   }
 
-  componentDidMount() {
-    window.addEventListener(
-      "swipeUp",
-      e => {
-        var frame = document.getElementById("endlessRunnerIframe");
-        frame.contentWindow.postMessage("swipeUp", "*");
-      },
-      false
-    );
+  postIframeMsg(msg) {
+    document.getElementById("endlessRunnerIframe").contentWindow.postMessage(msg, "*");
   }
+
   render() {
     return (
       <section className="iframeContent">
@@ -27,7 +21,7 @@ export default class iframeContainer extends Component {
           height="600px"
           id="endlessRunnerIframe"
         />
-        <HandtrackTest events={this.events} />
+        <HandtrackTest events={this.events} postIframeMsg={this.postIframeMsg} />
       </section>
     );
   }

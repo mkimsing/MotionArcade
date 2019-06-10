@@ -16,6 +16,7 @@ const scoreController = {
       });
   },
   postScore: scoreObj => {
+    scoreObj.name = scoreObj.name.toLowerCase()
     return Score.findOrCreate({
       where: { name: scoreObj.name },
       defaults: scoreObj
@@ -52,6 +53,7 @@ const scoreController = {
       });
   },
   getScoresForPlayer: name => {
+    name = name.toLowerCase();
     return Score.findAll({ where: { name: name } })
       .then(scores => {
         if (scores.length === 0) {
@@ -85,6 +87,7 @@ const scoreController = {
   //Returns 2(N-1) + 1 entries
   //eg. if N = 3, Returns 5 rankings, where name matches, 2 above and 2 below
   getSurroundingRankings: name => {
+    name = name.toLowerCase();
     return Score.sequelize.query(`SELECT id, name, score, RANK() OVER (ORDER BY score DESC) ranking from scores`,
       { type: Score.sequelize.QueryTypes.SELECT })
       .then(scores => {
@@ -101,10 +104,11 @@ const scoreController = {
         }
         let num = 3;
         let startIndex = 0;
-        if (!((foundIndex - num) <= 0)) {
+        console.log(foundIndex)
+        if ((foundIndex - num) >= 0) {
           startIndex = foundIndex - num + 1;
         } else {
-          num = 5;
+          num = 5 - foundIndex;
         }
         return scores.slice(startIndex, foundIndex + num);
       });
