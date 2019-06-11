@@ -27,7 +27,7 @@ export default function Header() {
               to="/Game2"
             >
               <div className="jetIcon icon" />
-              Galaga Lite
+              Space Shooter
             </NavLink>
           </div>
         </nav>

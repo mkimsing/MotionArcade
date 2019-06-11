@@ -1,8 +1,8 @@
 const scoreController = require("./controllers/scoreController");
 const express = require("express");
 const app = express();
+app.locals.models = require("./models");
 const cors = require("cors");
-
 //Ensure routes are defined before listening
 const PORT = process.env.PORT || 8080;
 
@@ -14,8 +14,8 @@ app.listen(PORT, () => {
 });
 
 app
-  .get("/endlessrunner", (_req, res) => {
-    scoreController.getAllScores().then(response => {
+  .get("/:gameName", (req, res) => {
+    scoreController.getAllScores(req.params.gameName, req).then(response => {
       if (!response.error) {
         res.json(response);
       } else {

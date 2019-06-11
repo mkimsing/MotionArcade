@@ -5,47 +5,46 @@ module.exports = {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
-      
+
       Example:
       return queryInterface.bulkInsert('People', [{
         name: 'John Doe',
         isBetaMember: false
       }], {});
     */
-
     return queryInterface.bulkInsert(
-      "SpaceShooterScores",
+      "Scores",
       [
         {
-          name: "gorilla",
+          name: "wyatt",
           score: "0"
         },
         {
-          name: "clam",
+          name: "gheavy1",
           score: "500"
         },
         {
-          name: "octopus",
+          name: "svittel2",
           score: "200"
         },
         {
-          name: "tiger",
+          name: "rjacobs",
           score: "1100"
         },
         {
-          name: "monkey",
+          name: "ljones",
           score: "200"
         },
         {
-          name: "penguin",
-          score: "1900"
+          name: "mlingard",
+          score: "1700"
         },
         {
-          name: "dove",
+          name: "gremlin",
           score: "100"
         },
         {
-          name: "dolphin",
+          name: "bomb",
           score: "700"
         },
         {
@@ -53,55 +52,55 @@ module.exports = {
           score: "800"
         },
         {
-          name: "walrus",
-          score: "1100"
+          name: "boats",
+          score: "1000"
         },
         {
-          name: "hydra",
+          name: "nedra",
           score: "900"
         },
         {
-          name: "dog",
+          name: "gbol",
           score: "200"
         },
         {
-          name: "seal",
+          name: "murenc",
           score: "400"
         },
         {
-          name: "starling",
+          name: "ddoring",
           score: "700"
         },
         {
-          name: "robin",
+          name: "grunwall",
           score: "1200"
         },
         {
-          name: "cat",
+          name: "rwest",
           score: "1300"
         },
         {
-          name: "falcon",
-          score: "100"
+          name: "a",
+          score: "1700"
         },
         {
-          name: "raptor",
+          name: "mkimsing",
           score: "1500"
         },
         {
-          name: "eagle",
+          name: "undelli",
           score: "1600"
         },
         {
-          name: "horse",
+          name: "klipsh",
           score: "1300"
         },
         {
-          name: "cow",
+          name: "bruh",
           score: "800"
         },
         {
-          name: "blowfish",
+          name: "lmnop",
           score: "200"
         },
         {
@@ -109,31 +108,31 @@ module.exports = {
           score: "100"
         },
         {
-          name: "snake",
+          name: "jake",
           score: "1200"
         },
         {
-          name: "chicken",
+          name: "awoo",
           score: "800"
         },
         {
-          name: "orca",
+          name: "lids",
           score: "1700"
         },
         {
-          name: "salmon",
+          name: "hi",
           score: "100"
         },
         {
-          name: "tuna",
+          name: "zerg",
           score: "100"
         },
         {
-          name: "rooster",
+          name: "whites",
           score: "300"
         },
         {
-          name: "whale",
+          name: "sprite",
           score: "600"
         }
       ],
@@ -149,6 +148,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete("SpaceShooterScores", null, {});
+    return queryInterface.bulkDelete("Scores", null, {});
   }
 };
