@@ -87,9 +87,6 @@ class RunnerScene extends Phaser.Scene {
       "./assets/BackgroundLayers/Layer_0000_9.png"
     );
 
-    //Target
-    this.load.image("target", "./assets/menu/target.png");
-
     // //Player
     // this.load.spritesheet(
     //   "playerChar",
