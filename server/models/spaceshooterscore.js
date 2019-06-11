@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       score: DataTypes.INTEGER
     },
     {
-      underscored: true
+      underscored: true,
+      tableName: "SpaceShooterScores"
     }
   );
   SpaceShooterScore.associate = function(models) {
