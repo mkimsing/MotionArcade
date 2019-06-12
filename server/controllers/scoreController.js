@@ -14,12 +14,12 @@ const scoreController = {
         table = {
           status: 404,
           msg: `Could not find table corresponding to: ${tableName}`
-        }
+        };
         break;
     }
     return table;
   },
-  getAllScores: (table) => {
+  getAllScores: table => {
     return table
       .findAll()
       .then(scores => {
@@ -36,10 +36,12 @@ const scoreController = {
   },
   postScore: (scoreObj, table) => {
     scoreObj.name = scoreObj.name.toLowerCase();
-    return table.findOrCreate({
-      where: { name: scoreObj.name },
-      defaults: scoreObj
-    })
+    scoreObj.score = Number(scoreObj.score);
+    return table
+      .findOrCreate({
+        where: { name: scoreObj.name },
+        defaults: scoreObj
+      })
       .then(([entry, created]) => {
         if (created) {
           entry.setDataValue("highScore", false);
@@ -64,15 +66,15 @@ const scoreController = {
         return {
           error: {
             status: 400,
-            msg:
-              "There was an error creating that object... Please try again later"
+            msg: err
           }
         };
       });
   },
   getScoresForPlayer: (name, table) => {
     name = name.toLowerCase();
-    return table.findAll({ where: { name: name } })
+    return table
+      .findAll({ where: { name: name } })
       .then(scores => {
         if (scores.length === 0) {
           return {
@@ -96,7 +98,8 @@ const scoreController = {
   getTopRankings: (num, table) => {
     return table.sequelize
       .query(
-        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) Ranking from ${table.name + 's'}`,
+        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) Ranking from ${table.name +
+          "s"}`,
         { type: table.sequelize.QueryTypes.SELECT }
       )
       .then(results => {
@@ -111,7 +114,8 @@ const scoreController = {
     name = name.toLowerCase();
     return table.sequelize
       .query(
-        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) ranking from ${table.name + 's'}`,
+        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) ranking from ${table.name +
+          "s"}`,
         { type: table.sequelize.QueryTypes.SELECT }
       )
       .then(scores => {

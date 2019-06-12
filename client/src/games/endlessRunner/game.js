@@ -369,7 +369,7 @@ class RunnerScene extends Phaser.Scene {
           this.actions[0] = false;
         }
       }
-      this.actions = [false, false] // consume all actions
+      this.actions = [false, false]; // consume all actions
     }
   }
 
@@ -931,7 +931,7 @@ class Highscore extends Phaser.Scene {
     axios
       .post(`http://localhost:8080/endlessRunner/`, {
         name: this.playerText.text,
-        score: this.playerScore
+        score: this.playerScore.toString()
       })
       .then(response => {
         let isHighscore = response.data.highScore;

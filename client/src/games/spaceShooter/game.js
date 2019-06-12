@@ -22,18 +22,18 @@ class GameScene extends Phaser.Scene {
     });
   }
 
-  calculateRelativePosition = (percentX) => {
+  calculateRelativePosition = percentX => {
     let relativeX = this.scene.manager.game.config.width * percentX;
     let difference = relativeX - this.player.x;
     if (Math.abs(difference) >= 50) {
-      let direction = (difference >= 0) ? 1 : -1
+      let direction = difference >= 0 ? 1 : -1;
       // this.actions[direction] = true;
-      this.player.body.drag.setTo(this.drag, this.drag)
+      this.player.body.drag.setTo(this.drag, this.drag);
       this.player.body.velocity.x = this.acceleration * direction;
     } else {
-      this.player.body.drag.setTo(1000, 1000)
+      this.player.body.drag.setTo(1000, 1000);
     }
-  }
+  };
 
   preload() {
     this.load.image("blueEnemyBullet", "./assets/enemy-blue-bullet.png");
@@ -185,7 +185,7 @@ class GameScene extends Phaser.Scene {
     explosion.setAlpha(0.7);
     explosion.on(
       "animationcomplete",
-      function () {
+      function() {
         explosion.setAlpha(0);
         explosion.setActive(false);
       },
@@ -259,7 +259,7 @@ class GameScene extends Phaser.Scene {
       enemy.body.velocity.y = verticalSpeed;
       enemy.lastShotTime = 0;
       enemy.bullets = 1;
-      enemy.update = function (scene) {
+      enemy.update = function(scene) {
         //  Wave movement
         this.setX(this.startingX + Math.sin(this.y / frequency) * spread);
         let bank = Math.cos((this.y + 60) / frequency);
@@ -429,7 +429,6 @@ class MainMenuScene extends Phaser.Scene {
     });
   };
 }
-
 
 /* ==========================================
     Leaderboard
@@ -782,9 +781,9 @@ class Highscore extends Phaser.Scene {
     });
 
     axios
-      .post(`http://localhost:8080/spaceShooter`, {
+      .post(`http://localhost:8080/spaceShooter/`, {
         name: this.playerText.text,
-        score: this.playerScore
+        score: this.playerScore.toString()
       })
       .then(response => {
         let isHighscore = response.data.highScore;
