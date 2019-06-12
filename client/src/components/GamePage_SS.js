@@ -1,6 +1,7 @@
 import React from "react";
 import IFrameContainer_SS from "../containers/iframeContainer_SS";
 import ScoresContainer from "../containers/ScoresContainer";
+import keyboardLayout from "../assets/images/keyboard-layout_SS.png"
 export default function GamePage_SS() {
   return (
     <div className="gamePage">
@@ -17,8 +18,7 @@ export default function GamePage_SS() {
       <IFrameContainer_SS />
       <section className="controls">
         <h1> Controls </h1>
-        <h3> Keyboard </h3>
-        <h4> Left and Right Arrow Keys => Movement </h4>
+        <img src={keyboardLayout} />
       </section>
     </div>
   );

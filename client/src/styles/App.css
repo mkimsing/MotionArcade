@@ -212,6 +212,12 @@
   text-align: center;
 }
 
+.keyFeatures .card__tagLine {
+  font-size: 22px;
+  padding-bottom: 20px;
+  border-bottom: solid 4px #fc66bc;
+}
+
 .keyFeatures .icon1,
 .keyFeatures .icon2,
 .keyFeatures .icon3 {
@@ -228,7 +234,8 @@
   color: white;
   background-color: #1f2833;
   position: relative;
-  height: 80vh;
+  height: 85vh;
+  padding-bottom: 25px;
 }
 
 .gameCard .overlay {
@@ -239,6 +246,12 @@
 
 .gameCard .endlessRunnerImg {
   background: url("../assets/images/ER_gameplay.png") center no-repeat;
+  background-size: cover;
+  height: inherit;
+}
+
+.gameCard .spaceShooterImg {
+  background: url("../assets/images/SS_gameplay.png") center no-repeat;
   background-size: cover;
   height: inherit;
 }

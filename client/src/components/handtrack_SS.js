@@ -1,6 +1,5 @@
 import React from "react";
 import * as handTrack from "handtrackjs";
-// const spawn = require("threads").spawn;
 
 export default class handtrackTest extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ export default class handtrackTest extends React.Component {
     };
     this.prevLocations = [];
     this.counter = 0;
-    this.thread = null;
   }
   componentWillUnmount() {
     this.isVideo = false;
@@ -74,6 +72,7 @@ export default class handtrackTest extends React.Component {
         type: 'enableCameraControls'
       })
     }
+
     this.model.detect(this.video.current).then(predictions => {
       if (predictions[0]) {
         let x = predictions[0].bbox[0];

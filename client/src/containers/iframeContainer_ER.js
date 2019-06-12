@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Iframe from "react-iframe";
-import HandtrackTest from "../components/handtrack_ER";
+import HandtrackTest from "../components/handtrack";
 
 export default class iframeContainer_ER extends Component {
 

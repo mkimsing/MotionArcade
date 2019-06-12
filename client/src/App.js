@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles/App.css";
 import { Route, Switch } from "react-router-dom";
-import ThreadingTest from "./components/threadingTest";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import GamePage_ER from "./components/GamePage_ER";
@@ -20,7 +19,6 @@ function App() {
           <Route path="/spaceShooter" component={GamePage_SS} />
         </ScrollToTop>
       </Switch>
-      {/* <ThreadingTest /> */}
       <Footer />
     </>
   );

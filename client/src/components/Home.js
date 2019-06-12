@@ -37,11 +37,13 @@ export default class Home extends React.Component {
                 <div className="card__content">
                   <img className="icon2" src={eyeTracking_img} />
                   <h2> Hand Tracking </h2>
+                  <h3 className="card__tagLine">Play games using your hand as the controller! </h3>
                   <h3>
-                    CHANGE ME! Some text describing the feature... Something
-                    something using handtrack.js. Built on top of tensorflow.js
-                    Uses convoluted neural nets and then magic happens
-                    Multithreading here if needed...
+                    Using the handtrack.js library we get bounding boxes
+                   for hands on the video stream.
+                  </h3>
+                  <h3>
+                    After a bit of math to track hand position across frames we can pass this information to our games!
                   </h3>
                 </div>
               </div>
@@ -49,21 +51,25 @@ export default class Home extends React.Component {
                 <div className="card__content">
                   <img className="icon1" src={gameController_img} />
                   <h2> Web Game Development </h2>
+                  <h3 className="card__tagLine">
+                    Scratch built web games using the Phaser 3 game framework!
+                  </h3>
                   <h3>
-                    CHANGE ME! Something something Phaser 3 game framework. Open
-                    source framework for Canvas and WebGL browser games. Uses JS
-                    and HTML 5
+                    Games for this project were built in Javascript using the open source Phaser 3 HTML5 game framework
                   </h3>
                 </div>
               </div>
               <div className="card">
                 <div className="card__content">
                   <img className="icon3" src={coding_img} />
-                  <h2> React UI & Express Server</h2>
+                  <h2> React & Express/MySQL</h2>
+                  <h3 className="card__tagLine">
+                    React front-end, a MySQL DB, with a Node.js/Express server in between
+                  </h3>
                   <h3>
-                    CHANGE ME! Uses React Components for UI and Node.js/Express
-                    server to handle scores and leaderboards. NPM,
-                    React-router-dom, anything else I can fit here
+                    Component based React SPA with react-router navigation. A Node.js/Express
+                    server with dynamic routes to manage scores and leaderboards, connected to a
+                    simple MySQL database
                   </h3>
                 </div>
               </div>
@@ -80,7 +86,22 @@ export default class Home extends React.Component {
                 skeleton infested forest...
               </h2>
               <h2 className="highlight">How long will you last?</h2>
-              <Link to="/Game1" className="playBtn">
+              <Link to="/endlessRunner" className="playBtn">
+                PLAY
+              </Link>
+            </div>
+          </div>
+        </section>
+        <section className="gameCard">
+          <div className="spaceShooterImg">
+            <div className="overlay" />
+            <div className="contentBlock">
+              <h1 className="gameCard__title">Space Shooter</h1>
+              <h2>
+                Use your hand to fly your ship as you battle waves of alien craft...
+              </h2>
+              <h2 className="highlight">How many will you defeat?</h2>
+              <Link to="/spaceShooter" className="playBtn">
                 PLAY
               </Link>
             </div>

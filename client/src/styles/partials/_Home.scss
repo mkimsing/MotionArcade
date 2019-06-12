@@ -91,6 +91,12 @@
       margin: 5px;
       text-align: center;
     }
+
+    &__tagLine{
+      font-size: 22px;
+      padding-bottom: 20px;
+      border-bottom: solid 4px $PINK;
+    }
   }
   .icon1,
   .icon2,
@@ -109,7 +115,8 @@
   color: white;
   background-color: $DARKGREY;
   position: relative;
-  height: 80vh;
+  height: 85vh;
+  padding-bottom: 25px;
   .overlay {
     background-color: rgba(0, 0, 0, 0.4);
     height: inherit;
@@ -118,6 +125,13 @@
 
   .endlessRunnerImg {
     background: url("../assets/images/ER_gameplay.png") center no-repeat;
+    background-size: cover;
+    height: inherit;
+    // width: 100%;
+  }
+
+    .spaceShooterImg {
+    background: url("../assets/images/SS_gameplay.png") center no-repeat;
     background-size: cover;
     height: inherit;
     // width: 100%;

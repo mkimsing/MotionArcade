@@ -1,6 +1,5 @@
 import React from "react";
 import * as handTrack from "handtrackjs";
-// const spawn = require("threads").spawn;
 
 export default class handtrackTest extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ export default class handtrackTest extends React.Component {
     };
     this.prevLocations = [];
     this.counter = 0;
-    this.thread = null;
   }
 
   componentWillUnmount() {
