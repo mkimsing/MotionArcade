@@ -18,13 +18,18 @@ export default class handtrackTest extends React.Component {
     this.counter = 0;
     this.thread = null;
   }
+
+  componentWillUnmount() {
+    handTrack.stopVideo(this.video.current);
+    this.isVideo = false;
+  }
   componentDidMount() {
     this.context = this.canvas.current.getContext("2d");
     const modelParams = {
       flipHorizontal: true, // flip e.g for video
       maxNumBoxes: 1, // maximum number of boxes to detect
       iouThreshold: 0.5, // ioU threshold for non-max suppression
-      scoreThreshold: 0.6 // confidence threshold for predictions.
+      scoreThreshold: 0.7 // confidence threshold for predictions.
     };
 
     // Load the model.
@@ -87,39 +92,8 @@ export default class handtrackTest extends React.Component {
           this.prevLocations.pop();
         }
 
-
-        /**===============================
-         * Swipe Up
-         ===============================*/
-        let isSwipeUp = this.prevLocations
-          .map(prevLocation => this.currentLocation.y - prevLocation.y)
-          .some(difference => difference <= -110);
-
-        if (isSwipeUp) {
-          let msg = {
-            type: 'swipeUp'
-          }
-          //Reset previous locations after triggering the action
-          this.prevLocations = this.prevLocations.map(_item => location);
-          this.props.postIframeMsg(msg)
-        }
-        /**============================
-         * Swipe Right
-         =============================*/
-        let isSwipeRight = this.prevLocations
-          .map(prevLocation => this.currentLocation.x - prevLocation.x)
-          .some(difference => difference >= 110);
-        if (isSwipeRight) {
-          //Reset previous locations after triggering the action
-          this.prevLocations = this.prevLocations.map(_item => location);
-          this.props.postIframeMsg({ type: 'swipeRight' })
-        }
+        this.props.interpretAction(this.currentLocation, this.prevLocations, this.canvas.current)
       }
-
-      // this.props.postIframeMsg({
-      //   type: "XPosition",
-      //   percentX: this.currentLocation.x / this.canvas.current.width
-      // })
 
       this.model.renderPredictions(
         predictions,

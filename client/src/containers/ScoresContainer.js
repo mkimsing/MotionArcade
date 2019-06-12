@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Leaderboard from '../components/Leaderboard'
-export default class leaderboardContainer extends Component {
+export default class ScoresContainer extends Component {
   state = {
     topScores: [],
     lastUpdated: new Date(),
@@ -18,7 +18,7 @@ export default class leaderboardContainer extends Component {
   }
 
   fetchTopScores = () => {
-    axios.get('http://localhost:8080/endlessrunner/topScores')
+    axios.get(`http://localhost:8080/${this.props.gameName}/topScores`)
       .then(response => {
         this.setState({
           topScores: response.data,

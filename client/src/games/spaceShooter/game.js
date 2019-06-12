@@ -4,6 +4,35 @@ const height = 600;
 class GameScene extends Phaser.Scene {
   constructor() {
     super({ key: "GameScene" });
+
+    window.addEventListener("message", event => {
+      // IMPORTANT: Check the origin of the data!
+      if (event.origin === "http://localhost:3000") {
+        // The data sent with postMessage is stored in event.data
+        if (this.scene.isActive("GameScene")) {
+          switch (event.data.type) {
+            case "XPosition":
+              this.calculateRelativePosition(event.data.percentX);
+            default:
+              break;
+          }
+        }
+        return;
+      }
+    });
+  }
+
+  calculateRelativePosition = (percentX) => {
+    let relativeX = this.scene.manager.game.config.width * percentX;
+    let difference = relativeX - this.player.x;
+    if (Math.abs(difference) >= 50) {
+      let direction = (difference >= 0) ? 1 : -1
+      // this.actions[direction] = true;
+      this.player.body.drag.setTo(this.drag, this.drag)
+      this.player.body.velocity.x = this.acceleration * direction;
+    } else {
+      this.player.body.drag.setTo(1000, 1000)
+    }
   }
 
   preload() {
@@ -39,9 +68,9 @@ class GameScene extends Phaser.Scene {
     this.player;
     this.starfieldBG;
     this.cursors;
-    this.acceleration = 600;
+    this.acceleration = 350;
     this.drag = 400;
-    this.maxSpeed = 400;
+    this.maxSpeed = 600;
     this.bankPercent;
     this.shipTrail;
     this.score = 0;
@@ -156,7 +185,7 @@ class GameScene extends Phaser.Scene {
     explosion.setAlpha(0.7);
     explosion.on(
       "animationcomplete",
-      function() {
+      function () {
         explosion.setAlpha(0);
         explosion.setActive(false);
       },
@@ -199,7 +228,7 @@ class GameScene extends Phaser.Scene {
         );
     };
 
-    let randomSpawnTime = Phaser.Math.Between(300, 800);
+    let randomSpawnTime = Phaser.Math.Between(600, 1200);
     this.greenSpawnTimer = this.time.delayedCall(
       randomSpawnTime,
       this.spawnGreenEnemy
@@ -207,16 +236,16 @@ class GameScene extends Phaser.Scene {
   };
 
   spawnBlueEnemy = () => {
-    let spread = 50;
+    let spread = 60;
     let frequency = 70;
-    let verticalSpacing = 70;
+    let verticalSpacing = 90;
     let numEnemiesInWave = 5;
-    let verticalSpeed = 250;
+    let verticalSpeed = 300;
     let randomX = Phaser.Math.Between(0, this.scene.manager.game.config.width);
     // enemy.body.setSize(enemy.width * 3 / 4, enemy.height * 3 / 4);
 
-    let firingDelay = 10000;
-    let bulletSpeed = 400;
+    let firingDelay = 3000;
+    let bulletSpeed = 220;
 
     //Wave of enemies
     for (let i = 0; i < numEnemiesInWave; i++) {
@@ -230,7 +259,7 @@ class GameScene extends Phaser.Scene {
       enemy.body.velocity.y = verticalSpeed;
       enemy.lastShotTime = 0;
       enemy.bullets = 1;
-      enemy.update = function(scene) {
+      enemy.update = function (scene) {
         //  Wave movement
         this.setX(this.startingX + Math.sin(this.y / frequency) * spread);
         let bank = Math.cos((this.y + 60) / frequency);
@@ -269,7 +298,7 @@ class GameScene extends Phaser.Scene {
       };
     }
 
-    let randomSpawnTime = Phaser.Math.Between(2000, 4000);
+    let randomSpawnTime = Phaser.Math.Between(3000, 6000);
     this.blueSpawnTimer = this.time.delayedCall(
       randomSpawnTime,
       this.spawnBlueEnemy
@@ -357,29 +386,6 @@ class MainMenuScene extends Phaser.Scene {
   constructor() {
     super({ key: "MainMenuScene" });
     this.useCameraControls = false;
-
-    // window.addEventListener("message", event => {
-    //   // IMPORTANT: Check the origin of the data!
-    //   if (event.origin === "http://localhost:3000") {
-    //     // The data has been sent from your site
-    //     // The data sent with postMessage is stored in event.data
-    //     if (this.scene.isActive("MainMenuScene")) {
-    //       switch (event.data.type) {
-    //         case "enableCameraControls":
-    //           this.useCameraControls = true;
-    //           break;
-    //         case "disableCameraControls":
-    //           this.useCameraControls = false;
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     }
-    //     // The data hasn't been sent from your site!
-    //     // Be careful! Do not use it.
-    //     return;
-    //   }
-    // });
   }
 
   preload() {
@@ -424,93 +430,6 @@ class MainMenuScene extends Phaser.Scene {
   };
 }
 
-class PreloadScene extends Phaser.Scene {
-  constructor() {
-    super({ key: "PreloadScene" });
-  }
-  preload() {
-    //Player
-    this.load.spritesheet(
-      "playerChar",
-      "./assets/Adventurer-1.5/adventurer-v1.5-Sheet.png",
-      { frameWidth: 50, frameHeight: 37 }
-    );
-
-    //Skeleton
-    this.load.spritesheet(
-      "SkeletonAttack",
-      "./assets/Skeleton/SpriteSheets/SkeletonAttack.png",
-      { frameWidth: 30, frameHeight: 37 }
-    );
-  }
-
-  create() {
-    //Player Char Animations
-    let animFrameRate = 8;
-    this.anims.create({
-      key: "left",
-      frames: this.anims.generateFrameNumbers("playerChar", {
-        start: 8,
-        end: 13
-      }),
-      frameRate: animFrameRate,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: "idle-run",
-      frames: this.anims.generateFrameNumbers("playerChar", {
-        start: 8,
-        end: 13
-      }),
-      frameRate: 5,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: "jump",
-      frames: this.anims.generateFrameNumbers("playerChar", {
-        start: 14,
-        end: 23
-      }),
-      frameRate: 15,
-      repeat: 0
-    });
-
-    this.anims.create({
-      key: "slide",
-      frames: this.anims.generateFrameNumbers("playerChar", {
-        start: 24,
-        end: 25
-      }),
-      frameRate: 4,
-      repeat: 0
-    });
-
-    //TODO use this if we have time
-    this.anims.create({
-      key: "attack",
-      frames: this.anims.generateFrameNumbers("playerChar", {
-        start: 93,
-        end: 99
-      }),
-      frameRate: 10,
-      repeat: 0
-    });
-
-    this.anims.create({
-      key: "skeleton-walk",
-      frames: this.anims.generateFrameNumbers("SkeletonWalk", {
-        start: 0,
-        end: 12
-      }),
-      frameRate: 15,
-      repeat: 0
-    });
-
-    this.scene.start("MainMenuScene");
-  }
-}
 
 /* ==========================================
     Leaderboard
@@ -862,9 +781,8 @@ class Highscore extends Phaser.Scene {
       duration: 450
     });
 
-    /*
     axios
-      .post(`http://localhost:8080/endlessrunner/`, {
+      .post(`http://localhost:8080/spaceShooter`, {
         name: this.playerText.text,
         score: this.playerScore
       })
@@ -873,7 +791,7 @@ class Highscore extends Phaser.Scene {
         let wasCreated = response.data.created;
         axios
           .get(
-            `http://localhost:8080/endlessrunner/ranks/${this.playerText.text}`
+            `http://localhost:8080/spaceShooter/ranks/${this.playerText.text}`
           )
           .then(response => {
             this.add
@@ -941,7 +859,6 @@ class Highscore extends Phaser.Scene {
             });
           });
       });
-      */
   }
 
   moveUp() {

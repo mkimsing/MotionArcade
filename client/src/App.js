@@ -4,7 +4,8 @@ import { Route, Switch } from "react-router-dom";
 import ThreadingTest from "./components/threadingTest";
 import Header from "./components/Header";
 import Home from "./components/Home";
-import GamePage from "./components/GamePage";
+import GamePage_ER from "./components/GamePage_ER";
+import GamePage_SS from "./components/GamePage_SS";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -15,7 +16,8 @@ function App() {
       <Switch>
         <ScrollToTop>
           <Route path="/" exact component={Home} />
-          <Route path="/Game1" component={GamePage} />
+          <Route path="/endlessRunner" component={GamePage_ER} />
+          <Route path="/spaceShooter" component={GamePage_SS} />
         </ScrollToTop>
       </Switch>
       {/* <ThreadingTest /> */}

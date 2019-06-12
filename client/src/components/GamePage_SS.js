@@ -1,25 +1,24 @@
 import React from "react";
-import IFrameContainer from "../containers/iframeContainer";
-import LeaderboardContainer from "../containers/ScoresContainer";
-export default function GamePage() {
+import IFrameContainer_SS from "../containers/iframeContainer_SS";
+import ScoresContainer from "../containers/ScoresContainer";
+export default function GamePage_SS() {
   return (
     <div className="gamePage">
       <section className="hero">
         <div className="hero__img">
           <div className="overlay" />
           <div className="contentBlock">
-            <h1>Endless Runner</h1>
-            <h2>Run till you die!</h2>
+            <h1>Space Shooter</h1>
+            <h2>Survive the waves of alien ships!</h2>
           </div>
-          <LeaderboardContainer />
+          <ScoresContainer gameName={'spaceShooter'} />
         </div>
       </section>
-      <IFrameContainer />
+      <IFrameContainer_SS />
       <section className="controls">
         <h1> Controls </h1>
         <h3> Keyboard </h3>
         <h4> Left and Right Arrow Keys => Movement </h4>
-        <h4> Up Arrow Key => Jump</h4>
       </section>
     </div>
   );

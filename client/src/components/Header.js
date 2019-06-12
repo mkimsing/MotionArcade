@@ -14,7 +14,7 @@ export default function Header() {
             <NavLink
               activeClassName="navLinkActive"
               className="navLink"
-              to="/Game1"
+              to="/endlessRunner"
             >
               <div className="runnerIcon icon" />
               Endless Runner
@@ -24,7 +24,7 @@ export default function Header() {
             <NavLink
               activeClassName="navLinkActive"
               className="navLink"
-              to="/Game2"
+              to="/spaceShooter"
             >
               <div className="jetIcon icon" />
               Space Shooter

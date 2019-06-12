@@ -369,6 +369,7 @@ class RunnerScene extends Phaser.Scene {
           this.actions[0] = false;
         }
       }
+      this.actions = [false, false] // consume all actions
     }
   }
 
@@ -393,19 +394,6 @@ class RunnerScene extends Phaser.Scene {
   playerAction = num => {
     this.actions[num] = true;
   };
-
-  // calculateRelativePosition = (percentX) => {
-  //   let relativeX = this.scene.manager.game.config.width * percentX;
-  //   let difference = relativeX - this.player.x;
-  //   if (Math.abs(difference) >= 100) {
-  //     let direction = (difference >= 0) ? 2 : 1
-  //     this.actions[direction] = true;
-  //   } else {
-  //     this.actions[1] = false;
-  //     this.actions[2] = false;
-  //     this.player.body.setVelocityX(0)
-  //   }
-  // }
 
   makeSkeleton() {
     let skeleton = this.skeletonList.create(900, 450, "SkeletonAttack");
@@ -941,7 +929,7 @@ class Highscore extends Phaser.Scene {
     });
 
     axios
-      .post(`http://localhost:8080/endlessrunner/`, {
+      .post(`http://localhost:8080/endlessRunner/`, {
         name: this.playerText.text,
         score: this.playerScore
       })
@@ -950,7 +938,7 @@ class Highscore extends Phaser.Scene {
         let wasCreated = response.data.created;
         axios
           .get(
-            `http://localhost:8080/endlessrunner/ranks/${this.playerText.text}`
+            `http://localhost:8080/endlessRunner/ranks/${this.playerText.text}`
           )
           .then(response => {
             this.add
