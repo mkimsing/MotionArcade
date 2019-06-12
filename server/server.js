@@ -15,56 +15,87 @@ app.listen(PORT, () => {
 
 app
   .get("/:gameName", (req, res) => {
-    scoreController.getAllScores(req.params.gameName, req).then(response => {
+    let table = scoreController.detectTable(req.params.gameName, req)
+    if (table.status) {
+      res.status(table.status).send(table.msg)
+    }
+    else {
+      scoreController.getAllScores(table).then(response => {
+        if (!response.error) {
+          res.json(response);
+        } else {
+          res.status(response.error.status).send(response.error.msg);
+        }
+      });
+    }
+  })
+  .post("/:gameName", (req, res) => {
+    if (!req.body || !req.body.name || !req.body.score) {
+      res.status(400).send("Please provide a JSON object with name and score");
+    }
+    else {
+      let table = scoreController.detectTable(req.params.gameName, req)
+      if (table.status) {
+        res.status(table.status).send(table.msg)
+      }
+      else {
+        scoreController.postScore(req.body, table).then(response => {
+          if (!response.error) {
+            res.status(201).json(response);
+          } else {
+            res.status(response.error.status).send(response.error.msg);
+          }
+        });
+      }
+    }
+  });
+
+//NOTE: Returns an array (but array should only have one item inside)
+//TODO change this to return only object?
+app.get("/:gameName/scores/:name", (req, res) => {
+  let table = scoreController.detectTable(req.params.gameName, req)
+  if (table.status) {
+    res.status(table.status).send(table.msg)
+  }
+  else {
+    scoreController.getScoresForPlayer(req.params.name, table).then(response => {
       if (!response.error) {
         res.json(response);
       } else {
         res.status(response.error.status).send(response.error.msg);
       }
     });
-  })
-  .post("/endlessrunner", (req, res) => {
-    if (!req.body || !req.body.name || !req.body.score) {
-      res.status(400).send("Please provide a JSON object with name and score");
-    } else {
-      scoreController.postScore(req.body).then(response => {
-        if (!response.error) {
-          res.status(201).json(response);
-        } else {
-          res.status(response.error.status).send(response.error.msg);
-        }
-      });
-    }
-  });
-
-//NOTE: Returns an array (but array should only have one item inside)
-//TODO change this to return only object?
-app.get("/endlessrunner/scores/:name", (req, res) => {
-  scoreController.getScoresForPlayer(req.params.name).then(response => {
-    if (!response.error) {
-      res.json(response);
-    } else {
-      res.status(response.error.status).send(response.error.msg);
-    }
-  });
+  }
 });
 
-app.get("/endlessrunner/topScores", (req, res) => {
-  scoreController.getTopRankings(5).then(response => {
-    if (!response.error) {
-      res.json(response);
-    } else {
-      res.status(response.error.status).send(response.error.msg);
-    }
-  });
+app.get("/:gameName/topScores", (req, res) => {
+  let table = scoreController.detectTable(req.params.gameName, req)
+  if (table.status) {
+    res.status(table.status).send(table.msg)
+  }
+  else {
+    scoreController.getTopRankings(5, table).then(response => {
+      if (!response.error) {
+        res.json(response);
+      } else {
+        res.status(response.error.status).send(response.error.msg);
+      }
+    });
+  }
 });
 
-app.get("/endlessrunner/ranks/:name", (req, res) => {
-  scoreController.getSurroundingRankings(req.params.name).then(response => {
-    if (!response.error) {
-      res.json(response);
-    } else {
-      res.status(response.error.status).send(response.error.msg);
-    }
-  });
+app.get("/:gameName/ranks/:name", (req, res) => {
+  let table = scoreController.detectTable(req.params.gameName, req)
+  if (table.status) {
+    res.status(table.status).send(table.msg)
+  }
+  else {
+    scoreController.getSurroundingRankings(req.params.name, table).then(response => {
+      if (!response.error) {
+        res.json(response);
+      } else {
+        res.status(response.error.status).send(response.error.msg);
+      }
+    });
+  }
 });

@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 // const { Score, SpaceShooterScore } = require("../models");
 const scoreController = {
-  getAllScores: (modelName, req) => {
+  detectTable: (tableName, req) => {
     let table;
-    switch (modelName) {
+    switch (tableName) {
       case "endlessRunner":
         table = req.app.locals.models.Score;
         break;
@@ -11,10 +11,15 @@ const scoreController = {
         table = req.app.locals.models.SpaceShooterScore;
         break;
       default:
-        table = req.app.locals.models.Score;
+        table = {
+          status: 404,
+          msg: `Could not find table corresponding to: ${tableName}`
+        }
         break;
     }
-    console.log(req.app.locals.models);
+    return table;
+  },
+  getAllScores: (table) => {
     return table
       .findAll()
       .then(scores => {
@@ -29,9 +34,9 @@ const scoreController = {
         };
       });
   },
-  postScore: scoreObj => {
+  postScore: (scoreObj, table) => {
     scoreObj.name = scoreObj.name.toLowerCase();
-    return Score.findOrCreate({
+    return table.findOrCreate({
       where: { name: scoreObj.name },
       defaults: scoreObj
     })
@@ -65,9 +70,9 @@ const scoreController = {
         };
       });
   },
-  getScoresForPlayer: name => {
+  getScoresForPlayer: (name, table) => {
     name = name.toLowerCase();
-    return Score.findAll({ where: { name: name } })
+    return table.findAll({ where: { name: name } })
       .then(scores => {
         if (scores.length === 0) {
           return {
@@ -88,11 +93,11 @@ const scoreController = {
         };
       });
   },
-  getTopRankings: num => {
-    return Score.sequelize
+  getTopRankings: (num, table) => {
+    return table.sequelize
       .query(
-        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) Ranking from scores`,
-        { type: Score.sequelize.QueryTypes.SELECT }
+        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) Ranking from ${table.name + 's'}`,
+        { type: table.sequelize.QueryTypes.SELECT }
       )
       .then(results => {
         return results.slice(0, num);
@@ -102,12 +107,12 @@ const scoreController = {
   // N = 3
   //Returns 2(N-1) + 1 entries
   //eg. if N = 3, Returns 5 rankings, where name matches, 2 above and 2 below
-  getSurroundingRankings: name => {
+  getSurroundingRankings: (name, table) => {
     name = name.toLowerCase();
-    return Score.sequelize
+    return table.sequelize
       .query(
-        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) ranking from scores`,
-        { type: Score.sequelize.QueryTypes.SELECT }
+        `SELECT id, name, score, RANK() OVER (ORDER BY score DESC) ranking from ${table.name + 's'}`,
+        { type: table.sequelize.QueryTypes.SELECT }
       )
       .then(scores => {
         let foundIndex = scores.findIndex(row => {
