@@ -18,7 +18,6 @@
 
   .navItem {
     margin: 0px 25px;
-    width: 120px;
     $ICONSIZE: 40px;
     .runnerIcon {
       mask-image: url("../assets/icons/runner.svg");
@@ -53,6 +52,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 
     &:hover {
       color: $TEAL;
@@ -63,6 +63,17 @@
     border-bottom: 8px solid $BLUE;
     .icon {
       background-color: $PINK;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    .navItem {
+      .icon {
+        height: 30px;
+        width: 30px;
+      }
     }
   }
 }

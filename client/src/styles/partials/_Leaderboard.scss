@@ -2,7 +2,7 @@
   position: absolute;
   bottom: 30px;
   right: 15%;
-  width: 32%;
+  width: 450px;
   background-color: $DARKGREY;
   color: white;
   border: 2px solid $DARKTEAL;
@@ -22,7 +22,6 @@
   }
 
   .row {
-    // border-bottom: 2px $BLACK solid;
     display: flex;
     .ranking,
     .score,
@@ -87,5 +86,18 @@
 
   .spinning {
     animation: spin 0.25s linear;
+  }
+}
+
+@media (max-width: 768px) {
+  .leaderboard {
+    right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard {
+    right: 1%;
+    width: 400px;
   }
 }

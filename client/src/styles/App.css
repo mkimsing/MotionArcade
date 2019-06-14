@@ -26,7 +26,6 @@
 
 .header .navItem {
   margin: 0px 25px;
-  width: 120px;
 }
 
 .header .navItem .runnerIcon {
@@ -80,6 +79,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  text-align: center;
 }
 
 .header a.navLink:hover {
@@ -92,6 +92,13 @@
 
 .header a.navLinkActive .icon {
   background-color: #fc66bc;
+}
+
+@media (max-width: 480px) {
+  .header .navItem .icon {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 .hero__img {
@@ -153,7 +160,7 @@
   background-color: #c5c6c7;
   padding-top: 100px;
   padding-bottom: 200px;
-  height: 80vh;
+  min-height: 80vh;
 }
 
 .keyFeatures .keyFeatures__content {
@@ -181,7 +188,7 @@
   width: 30%;
   margin: 10px;
   color: white;
-  height: 55vh;
+  min-height: 60vh;
   padding: 10px;
 }
 
@@ -199,6 +206,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  text-align: center;
 }
 
 .keyFeatures .card h2 {
@@ -315,6 +323,62 @@
   color: #fc8966;
 }
 
+@media (max-width: 1440px) {
+  .hero .contentBlock {
+    left: 24px;
+  }
+  .keyFeatures .keyFeatures__content {
+    margin: 0px 24px;
+  }
+  .keyFeatures__title {
+    font-size: 64px;
+    margin: 32px 0px;
+    color: #0b0c10;
+  }
+  .gameCard .contentBlock {
+    right: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero .contentBlock h1 {
+    font-size: 90px;
+  }
+  .hero .contentBlock h2 {
+    font-size: 32px;
+  }
+  .keyFeatures .cardContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .keyFeatures .card {
+    width: 100%;
+    margin: 0px 24px;
+  }
+  .gameCard .contentBlock .gameCard__title {
+    font-size: 70px;
+  }
+  .gameCard .contentBlock h2 {
+    width: 100%;
+    text-align: right;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero .contentBlock h1 {
+    font-size: 60px;
+  }
+}
+
 footer {
   background-color: #1f2833;
   width: 100%;
@@ -354,7 +418,7 @@ footer section .contactInfo h4 {
 .gamePage .hero__img {
   background: url("../assets/images/HighScores.jpg") center no-repeat;
   background-size: cover;
-  height: 700px;
+  height: 750px;
   width: 100%;
   position: relative;
 }
@@ -438,11 +502,59 @@ section.controls h1 {
   font-size: 100px;
 }
 
+@media (max-width: 1440px) {
+  .gamePage .hero .contentBlock {
+    left: 24px;
+  }
+  .gamePage .hero .contentBlock h1 {
+    font-size: 110px;
+  }
+  .gamePage .hero .contentBlock h2 {
+    font-size: 45px;
+  }
+  .gamePage .tracking {
+    left: 30px;
+  }
+  .gamePage iframe {
+    width: 80%;
+  }
+  .gamePage .iframeContent {
+    position: relative;
+    background-color: #a19d9b;
+    padding: 150px 0px;
+  }
+  .gamePage section.controls {
+    margin: 0px 24px;
+  }
+  .gamePage section.controls h1 {
+    font-size: 50px;
+  }
+  .gamePage section.controls img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .gamePage .hero .contentBlock {
+    left: 24px;
+  }
+  .gamePage .hero .contentBlock h1 {
+    font-size: 70px;
+  }
+  .gamePage .hero .contentBlock h2 {
+    font-size: 30px;
+  }
+  .gamePage .tracking .canvasbox {
+    height: 200px;
+    width: 250px;
+  }
+}
+
 .leaderboard {
   position: absolute;
   bottom: 30px;
   right: 15%;
-  width: 32%;
+  width: 450px;
   background-color: #1f2833;
   color: white;
   border: 2px solid #45a29e;
@@ -555,5 +667,18 @@ section.controls h1 {
 .leaderboard .spinning {
   -webkit-animation: spin 0.25s linear;
           animation: spin 0.25s linear;
+}
+
+@media (max-width: 768px) {
+  .leaderboard {
+    right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard {
+    right: 1%;
+    width: 400px;
+  }
 }
 /*# sourceMappingURL=App.css.map */

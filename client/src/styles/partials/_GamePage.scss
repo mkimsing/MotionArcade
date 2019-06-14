@@ -3,7 +3,7 @@
     &__img {
       background: url("../assets/images/HighScores.jpg") center no-repeat;
       background-size: cover;
-      height: 700px;
+      height: 750px;
       width: 100%;
       position: relative;
     }
@@ -74,5 +74,69 @@ section.controls {
   h1 {
     margin: 0px;
     font-size: 100px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .gamePage {
+    .hero {
+      .contentBlock {
+        left: 24px;
+        h1 {
+          font-size: 110px;
+        }
+
+        h2 {
+          font-size: 45px;
+        }
+      }
+    }
+    .tracking {
+      left: 30px;
+    }
+    iframe {
+      width: 80%;
+    }
+
+    .iframeContent {
+      position: relative;
+      background-color: $GREY;
+      padding: 150px 0px;
+    }
+    section.controls {
+      margin: 0px 24px;
+      h1 {
+        font-size: 50px;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .gamePage {
+    .hero {
+      &__img {
+        // height: 950px;
+      }
+      .contentBlock {
+        left: 24px;
+        h1 {
+          font-size: 70px;
+        }
+
+        h2 {
+          font-size: 30px;
+        }
+      }
+    }
+    .tracking {
+      .canvasbox {
+        height: 200px;
+        width: 250px;
+      }
+    }
   }
 }
